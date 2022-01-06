@@ -1,18 +1,22 @@
 #include "../includes/philo.h"
 
-int	main(int argc, char *argv[])
+int	validate_args(int argc)
+{
+	if (argc < 5 || argc > 6)
+	{
+		printf("Error: wrong number of arguments.\n");
+		return (0);
+	}
+	return (1);
+}
+
+int	entry_args_check(int argc, char *argv[])
 {
 	int i;
 	long int temp;
 
 	i = 1;
 	temp = 0;
-	if (argc < 5 || argc > 6)
-	{
-		printf("Error: wrong number of arguments.\n");
-		return (0);
-	}
-	argc--;
 	while (i <= argc)
 	{
 		if (!ft_isdigit(*argv[i]))
@@ -28,6 +32,14 @@ int	main(int argc, char *argv[])
 		}
 		i++;
 	}
+	return (1);
+}
+
+int	main(int argc, char *argv[])
+{
+	validate_args(argc);
+	argc--;
+	entry_args_check(argc, argv);
 	printf("Deu bom :D\n");
 	return(1);
 }
