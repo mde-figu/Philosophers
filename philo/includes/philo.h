@@ -8,11 +8,12 @@
 
 typedef struct s_para
 {
-	int		philo_nbr;
-	int		t_todie;
-	int		t_toeat;
-	int		t_tosleep;
-	int		meals_nbr;
+	int					philo_nbr;
+	int					t_todie;
+	int					t_toeat;
+	int					t_tosleep;
+	int					meals_nbr;
+	long int			start_time;
 }	t_para;
 
 int	ft_atoi(const char *str);

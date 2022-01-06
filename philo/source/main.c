@@ -38,11 +38,18 @@ static int	entry_args_check(int argc, char *argv[])
 
 int	main(int argc, char *argv[])
 {
+	struct timeval time;
+	t_para param;
+
+	//param = (void *)malloc(sizeof(t_para));
+	//param.start_time = NULL;
 	if (validate_args(argc) != 0)
 		return(1);
-	//argc--;
 	if (entry_args_check(argc, argv) != 0)
 		return(1);
-	printf("Deu bom :D\n");
+	gettimeofday(&time, NULL);
+	param.start_time = time.tv_sec;
+	printf("Deu bom em %ld :D\n", time.tv_usec);
+	printf("em segundos: %li\n", param.start_time);
 	return(0);
 }
