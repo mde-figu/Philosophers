@@ -36,20 +36,46 @@ static int	entry_args_check(int argc, char *argv[])
 	return (0);
 }
 
+int	init_philosophers(int i, char *argv[], int argc)
+{
+	//struct timeval time;
+	t_philo *philo;
+	t_para *param;
+
+	(void) argv;
+	i = i + 0;
+	philo = NULL;
+	param = (void *)malloc(sizeof(t_para));
+	//memset(philo, 0, sizeof(t_philo));
+	//philo->name = i;
+	printf(">>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+	//philo->param->start_time = (long int )malloc(sizeof(long int));
+	philo->param->t_todie = ft_atoi(argv[2]);
+	philo->param->t_toeat = ft_atoi(argv[3]);
+	philo->param->t_tosleep = ft_atoi(argv[4]);
+	if (argc == 5)
+		philo->param->meals_nbr = ft_atoi(argv[5]);
+	else
+		philo->param->meals_nbr = 0;
+	//gettimeofday(&time, NULL);
+	//philo->param->start_time = time.tv_sec;
+	//printf("Deu bom em %d :D\n", time.tv_usec);
+	//printf("em segundos: %li\n", philo->param->start_time);
+	return (0);
+}
+
 int	main(int argc, char *argv[])
 {
-	struct timeval time;
-	t_para param;
-
+	int i;
+	
+	i = 0;
 	//param = (void *)malloc(sizeof(t_para));
 	//param.start_time = NULL;
 	if (validate_args(argc) != 0)
 		return(1);
 	if (entry_args_check(argc, argv) != 0)
 		return(1);
-	gettimeofday(&time, NULL);
-	param.start_time = time.tv_sec;
-	printf("Deu bom em %ld :D\n", time.tv_usec);
-	printf("em segundos: %li\n", param.start_time);
+	while (i++ <= *argv[1])
+		init_philosophers(i, argv, argc);
 	return(0);
 }
