@@ -9,6 +9,7 @@ SRC_PATH =	./source \
 SRC =		main.c\
 			ft_atoi.c\
 			ft_isdigit.c\
+			ft_memset.c\
 
 
 OBJ_DIR	=	./builds
