@@ -36,6 +36,31 @@ static int	entry_args_check(int argc, char *argv[])
 	return (0);
 }
 
+long int	phil_clockins(void)
+{
+	struct timeval time;
+
+	gettimeofday(&time, NULL);
+
+	return (time.tv_sec / 1000);
+}
+
+static void	get_param(char *argv[], t_param *param)
+{
+
+	param->philo_nbr = ft_atoi(argv[1]);
+	param->t_todie = ft_atoi(argv[2]);
+	printf("apos guardar o valor, t_todie tem %i\n",param->t_todie);
+	param->t_toeat = ft_atoi(argv[3]);
+	param->t_tosleep = ft_atoi(argv[4]);
+	if (argv[5])
+		param->meals_nbr = ft_atoi(argv[5]);
+	else
+		param->meals_nbr = 0;
+	param->start_time = phil_clockins();
+	printf("em segundos: %li\n", param->start_time);
+}
+
 static void struct_init(t_param *param, t_philo *philo)
 {
 	philo->name = 0;
@@ -44,7 +69,7 @@ static void struct_init(t_param *param, t_philo *philo)
 	philo->satisfied = 0;
 	philo->times_eat = 0;
 	philo->fork_left = 0;
-	philo->fork_rigth = 0;
+	philo->fork_right = 0;
 	param->philo_nbr = 0;
 	param->t_todie = 0;
 	param->t_toeat = 0;
@@ -55,22 +80,28 @@ static void struct_init(t_param *param, t_philo *philo)
 
 int	main(int argc, char *argv[])
 {
-	struct timeval time;
 	t_param param;
 	t_philo	philo;
 
-	//param = (void *)malloc(sizeof(t_para));
-	//param.start_time = NULL;
 	struct_init(&param, &philo);
 	if (validate_args(argc) != 0)
 		return(1);
 	if (entry_args_check(argc, argv) != 0)
 		return(1);
-	gettimeofday(&time, NULL);
-	param.start_time = time.tv_sec;
-	printf("Deu bom em %ld :D\n", time.tv_usec);
-	printf("em segundos: %li\n", param.start_time);
+	get_param(argv, &param);
+	printf("philo_nbr inicializado: %i\n", param.philo_nbr);
+	printf("time to die inicializado: %i\n", param.t_todie);
+	printf("time to eat inicializado: %i\n", param.t_toeat);
+	printf("time to sleep: %i\n", param.t_tosleep);
 	printf("Meals inicializado: %i\n", param.meals_nbr);
+	printf("Tempo de 1970: %ld\n", param.start_time);
+	printf("nome :%i \n", philo.name);
 	printf("ultima ceia:%li \n", philo.last_meal);
+	printf("morte do philo:%i \n", philo.death);
+	printf("pança cheia:%i \n", philo.satisfied);
+	printf("hora de comer:%i \n", philo.times_eat);
+	printf("Garfo esq:%i \n", philo.fork_left);
+	printf("Garfo dir:%i \n", philo.fork_right);
+
 	return(0);
 }

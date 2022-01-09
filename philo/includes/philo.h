@@ -24,7 +24,7 @@ typedef struct s_philo
     int                     satisfied; //bool?
     int                     times_eat;
     int                     fork_left;
-    int                     fork_rigth; 
+    int                     fork_right; 
     //t_param               *param;
 }   t_philo;
 
