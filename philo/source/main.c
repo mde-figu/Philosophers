@@ -36,13 +36,32 @@ static int	entry_args_check(int argc, char *argv[])
 	return (0);
 }
 
+static void struct_init(t_param *param, t_philo *philo)
+{
+	philo->name = 0;
+	philo->last_meal = 0;
+	philo->death = 0;
+	philo->satisfied = 0;
+	philo->times_eat = 0;
+	philo->fork_left = 0;
+	philo->fork_rigth = 0;
+	param->philo_nbr = 0;
+	param->t_todie = 0;
+	param->t_toeat = 0;
+	param->t_tosleep = 0;
+	param->meals_nbr = 0;
+	param->start_time = 0; 
+}
+
 int	main(int argc, char *argv[])
 {
 	struct timeval time;
-	t_para param;
+	t_param param;
+	t_philo	philo;
 
 	//param = (void *)malloc(sizeof(t_para));
 	//param.start_time = NULL;
+	struct_init(&param, &philo);
 	if (validate_args(argc) != 0)
 		return(1);
 	if (entry_args_check(argc, argv) != 0)
@@ -51,5 +70,7 @@ int	main(int argc, char *argv[])
 	param.start_time = time.tv_sec;
 	printf("Deu bom em %ld :D\n", time.tv_usec);
 	printf("em segundos: %li\n", param.start_time);
+	printf("Meals inicializado: %i\n", param.meals_nbr);
+	printf("ultima ceia:%li \n", philo.last_meal);
 	return(0);
 }
