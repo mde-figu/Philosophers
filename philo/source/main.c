@@ -127,8 +127,10 @@ int	main(int argc, char *argv[])
 	get_paramm(argv, &param);
 	printf("meals_nbr: %i\n", param.meals_nbr);
 	if (init_dinner(&param) != 0)
+	{
 		printf("rodou init_dinner, vai sair  com a comanda sem pagar, oh la!\n");
 		return(1);
+	}
 	//while (i++ <= *argv[1])
 	//	init_philosophers(i, argv, argc);
 	return(0);

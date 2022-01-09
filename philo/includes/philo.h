@@ -26,7 +26,7 @@ typedef struct s_philo
 	int				times_eat;
 	int				fork_left;
 	int				fork_rigth; 
-	//t_param		*param;
+	struct t_param		*param;
 }	t_philo;
 
 int		ft_atoi(const char *str);
