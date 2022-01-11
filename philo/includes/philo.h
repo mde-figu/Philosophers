@@ -16,6 +16,7 @@ typedef struct s_param
 	int					t_tosleep;
 	int					meals_nbr;
 	long int		start_time;
+	pthread_mutex_t	*forks;
 }	t_param;
 
 typedef struct s_philo
@@ -27,12 +28,14 @@ typedef struct s_philo
 	int				times_eat;
 	int				fork_left;
 	int				fork_rigth;
-	pthread_mutex_t	*forks;
-	struct t_param		*param;
+	//pthread_mutex_t	*forks;
+	pthread_t	t_philo;
+	struct s_param		*params;
 }	t_philo;
 
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 void	*ft_memset(void *s, int c, size_t n);
+void	*dinner();
 
 #endif
