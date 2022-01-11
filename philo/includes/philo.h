@@ -3,6 +3,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <stdbool.h>
 # include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -21,11 +22,12 @@ typedef struct s_philo
 {
 	int				name;
 	long int		last_meal;
-	int				death; //bool?
-	int				satisfied; //bool?
+	bool				death; //bool?
+	bool				satisfied; //bool?
 	int				times_eat;
 	int				fork_left;
-	int				fork_rigth; 
+	int				fork_rigth;
+	pthread_mutex_t	*forks;
 	struct t_param		*param;
 }	t_philo;
 

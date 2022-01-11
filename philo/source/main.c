@@ -64,11 +64,14 @@ static void	get_paramm(char *argv[], t_param *param)
 
 static void	init_philosophers(t_philo *philo, t_param *param, int total_philo, int i)
 {
+	philo->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* total_philo);
 	while (i++ < total_philo)
 	{
 		printf("CHEGO O %i NA MESA!\n", i);
 		//memset(&philo[i], 0, sizeof(t_philo));
 		philo[i].name = i;
+		pthread_mutex_init(&philo->forks[i], NULL);
 		//philo[i].param = param;
 	}
 	printf("philo_name: %i\n", philo[1].name);
@@ -81,10 +84,11 @@ static void	init_philosophers(t_philo *philo, t_param *param, int total_philo, i
 static int		init_dinner(t_param *param)
 {
 	t_philo philo;
-	
+
 	printf("CHEGUEI NA MESA!\n");
 	//philo = NULL;
 	init_philosophers(&philo, param, param->philo_nbr, 0);
+	free(philo.forks);
 	return (0);
 }
 
@@ -93,8 +97,8 @@ void init_struct(t_param *param, t_philo *philo)
 	//philo->param = NULL;
 	philo->name = 0;
 	philo->last_meal = 0;
-	philo->death = 0;
-	philo->satisfied = 0;
+	philo->death = false;
+	philo->satisfied = false;
 	philo->times_eat = 0;
 	philo->fork_left = 0;
 	philo->fork_rigth = 0;
@@ -103,7 +107,7 @@ void init_struct(t_param *param, t_philo *philo)
 	param->t_toeat = 0;
 	param->t_tosleep = 0;
 	param->meals_nbr = 0;
-	param->start_time = 0; 
+	param->start_time = 0;
 	// printf("philo_name: %i\n", philo->name);
 	// printf("philo_nbr: %i\n", philo->param->philo_nbr);
 	// printf("time_die: %i\n", philo->param->t_todie);
