@@ -23,6 +23,7 @@ typedef struct s_philo
 {
 	int				name;
 	long int		last_meal;
+	int					meals;
 	bool				death; //bool?
 	bool				satisfied; //bool?
 	int				times_eat;
@@ -33,9 +34,30 @@ typedef struct s_philo
 	struct s_param		*params;
 }	t_philo;
 
-int		ft_atoi(const char *str);
-int		ft_isdigit(int c);
-void	*ft_memset(void *s, int c, size_t n);
-void	*dinner();
+/********
+** DINNER
+*********/
+void		*dinner();
+
+/********
+** PARSE
+*********/
+void init_struct(t_param *param, t_philo *philo);
+void	get_paramm(char *argv[], t_param *param);
+
+/********
+** TIME
+*********/
+unsigned long int	time_calc(long int start_time);
+unsigned long int	phil_clockins(void);
+int time_if_died(long int dead_time, long int last_meal);
+
+/********
+** UTILS
+*********/
+
+int			ft_atoi(const char *str);
+int			ft_isdigit(int c);
+//void	*ft_memset(void *s, int c, size_t n);
 
 #endif

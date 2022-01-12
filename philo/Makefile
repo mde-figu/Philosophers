@@ -7,6 +7,8 @@ INCLUDES = ./includes/philo.h
 SRC_PATH =	./source \
 
 SRC =		main.c\
+			parse.c\
+			time.c\
 			ft_atoi.c\
 			ft_isdigit.c\
 			ft_memset.c\
