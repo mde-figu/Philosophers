@@ -10,7 +10,7 @@ void init_struct(t_param *param, t_philo *philo)
 	philo->satisfied = false;
 	philo->times_eat = 0;
 	philo->fork_left = 0;
-	philo->fork_rigth = 0;
+	philo->fork_right = 0;
 	param->philo_nbr = 0;
 	param->t_todie = 0;
 	param->t_toeat = 0;

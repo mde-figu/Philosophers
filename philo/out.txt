@@ -1,0 +1,168 @@
+==64842== Memcheck, a memory error detector
+==64842== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==64842== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==64842== Command: ./philo 5 20 21 80 5
+==64842== Parent PID: 64841
+==64842== 
+==64842== Thread 2:
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x1097AC: routine (main.c:103)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109AF6: main (main.c:187)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x1097B8: routine (main.c:105)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109AF6: main (main.c:187)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x1097C7: routine (main.c:107)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109AF6: main (main.c:187)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x1095D0: eating (main.c:65)
+==64842==    by 0x1097D4: routine (main.c:108)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109AF6: main (main.c:187)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x1097E2: routine (main.c:109)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109AF6: main (main.c:187)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x1097FD: routine (main.c:111)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109AF6: main (main.c:187)
+==64842== 
+==64842== Thread 6:
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x486BFD3: pthread_mutex_lock (pthread_mutex_lock.c:71)
+==64842==    by 0x1094E6: eating (main.c:53)
+==64842==    by 0x1097D4: routine (main.c:108)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109D92: get_paramm (parse.c:42)
+==64842==    by 0x109B80: main (main.c:197)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x486BFDC: pthread_mutex_lock (pthread_mutex_lock.c:75)
+==64842==    by 0x1094E6: eating (main.c:53)
+==64842==    by 0x1097D4: routine (main.c:108)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109D92: get_paramm (parse.c:42)
+==64842==    by 0x109B80: main (main.c:197)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x486BFF3: pthread_mutex_lock (pthread_mutex_lock.c:80)
+==64842==    by 0x1094E6: eating (main.c:53)
+==64842==    by 0x1097D4: routine (main.c:108)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109D92: get_paramm (parse.c:42)
+==64842==    by 0x109B80: main (main.c:197)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x486BFFE: pthread_mutex_lock (pthread_mutex_lock.c:81)
+==64842==    by 0x1094E6: eating (main.c:53)
+==64842==    by 0x1097D4: routine (main.c:108)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109D92: get_paramm (parse.c:42)
+==64842==    by 0x109B80: main (main.c:197)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x486D7C2: __pthread_mutex_unlock_usercnt (pthread_mutex_unlock.c:42)
+==64842==    by 0x486D7C2: pthread_mutex_unlock (pthread_mutex_unlock.c:357)
+==64842==    by 0x109620: eating (main.c:69)
+==64842==    by 0x1097D4: routine (main.c:108)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109D92: get_paramm (parse.c:42)
+==64842==    by 0x109B80: main (main.c:197)
+==64842== 
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x486D7C9: __pthread_mutex_unlock_usercnt (pthread_mutex_unlock.c:47)
+==64842==    by 0x486D7C9: pthread_mutex_unlock (pthread_mutex_unlock.c:357)
+==64842==    by 0x109620: eating (main.c:69)
+==64842==    by 0x1097D4: routine (main.c:108)
+==64842==    by 0x109878: dinner (main.c:130)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109D92: get_paramm (parse.c:42)
+==64842==    by 0x109B80: main (main.c:197)
+==64842== 
+==64842== Thread 2:
+==64842== Conditional jump or move depends on uninitialised value(s)
+==64842==    at 0x109883: dinner (main.c:131)
+==64842==    by 0x4869608: start_thread (pthread_create.c:477)
+==64842==    by 0x49A5292: clone (clone.S:95)
+==64842==  Uninitialised value was created by a heap allocation
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109AF6: main (main.c:187)
+==64842== 
+==64842== Thread 1:
+==64842== Invalid read of size 1
+==64842==    at 0x109A83: init_dinner (main.c:175)
+==64842==    by 0x109B93: main (main.c:199)
+==64842==  Address 0x4a78055 is 21 bytes inside a block of size 344 free'd
+==64842==    at 0x483CA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109A4C: init_philosophers (main.c:162)
+==64842==    by 0x109A7E: init_dinner (main.c:174)
+==64842==    by 0x109B93: main (main.c:199)
+==64842==  Block was alloc'd at
+==64842==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==64842==    by 0x109AF6: main (main.c:187)
+==64842== 
+==64842== 
+==64842== HEAP SUMMARY:
+==64842==     in use at exit: 0 bytes in 0 blocks
+==64842==   total heap usage: 8 allocs, 8 frees, 4,208 bytes allocated
+==64842== 
+==64842== All heap blocks were freed -- no leaks are possible
+==64842== 
+==64842== For lists of detected and suppressed errors, rerun with: -s
+==64842== ERROR SUMMARY: 183 errors from 14 contexts (suppressed: 0 from 0)

@@ -38,26 +38,36 @@ static int	entry_args_check(int argc, char *argv[])
 
 void	only_onephilo(t_philo *one)
 {
-	printf("In %ld miliseconds %i has taken a fork\n", time_calc(one->params->start_time), one->name);
-	usleep(one->params->t_todie * 10);
-	printf("In %ld miliseconds %i died\n", time_calc(one->params->start_time), one->name);
+	printf("%ld %i has taken a fork\n", time_calc(one->params->start_time), one->name);
+	//printf("In %ld miliseconds %i has taken a fork\n", time_calc(one->params->start_time), one->name);
+	usleep(one->params->t_todie * 1000);
+	printf("%ld %i died\n", time_calc(one->params->start_time), one->name);
+	//printf("In %ld miliseconds %i died\n", time_calc(one->params->start_time), one->name);
 }
 
 int	eating(t_philo *philo)
 {
-	if (philo->meals == philo->params->meals_nbr)
-		philo->satisfied = true;
+	pthread_mutex_lock(&philo->params->forks[philo->fork_left]);
+	//printf("In %ld miliseconds %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
+	printf("%ld %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
+	pthread_mutex_lock(&philo->params->forks[philo->fork_right]);
+	/* printf("In %ld miliseconds %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
+	printf("In %ld miliseconds %i is eating\n", time_calc(philo->params->start_time), philo->name); */
+	printf("%ld %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
+	printf("%ld %i is eating\n", time_calc(philo->params->start_time), philo->name);
+	philo->last_meal = time_calc(philo->params->start_time);
 	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
 	{
 		philo->death = true;
 		return (1);
 	}
-	printf("In %ld miliseconds %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
-	printf("In %ld miliseconds %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
-	printf("In %ld miliseconds %i is eating\n", time_calc(philo->params->start_time), philo->name);
-	philo->last_meal = time_calc(philo->params->start_time);
 	philo->meals++;
-	usleep(philo->params->t_toeat * 10);
+	if (philo->meals == philo->params->meals_nbr)
+		philo->satisfied = true;
+	//printf("In %ld miliseconds %i meals\n", time_calc(philo->params->start_time), philo->meals);
+	usleep(philo->params->t_toeat * 1000);
+	pthread_mutex_unlock(&philo->params->forks[philo->fork_right]);
+	pthread_mutex_unlock(&philo->params->forks[philo->fork_left]);
 	return (0);
 }
 
@@ -68,8 +78,9 @@ int	sleeping(t_philo *philo)
 		philo->death = true;
 		return (1);
 	}
-	printf("In %ld miliseconds %i is sleeping\n", time_calc(philo->params->start_time), philo->name);
-	usleep(philo->params->t_tosleep * 10);
+	printf("%ld %i is sleeping\n", time_calc(philo->params->start_time), philo->name);
+	//printf("In %ld miliseconds %i is sleeping\n", time_calc(philo->params->start_time), philo->name);
+	usleep(philo->params->t_tosleep * 1000);
 	return (0);
 }
 
@@ -80,7 +91,8 @@ int	thinking(t_philo *philo)
 		philo->death = true;
 		return (1);
 	}
-	printf("In %ld miliseconds %i is thinking\n", time_calc(philo->params->start_time), philo->name);
+	printf("%ld %i is thinking\n", time_calc(philo->params->start_time), philo->name);
+	//printf("In %ld %i is thinking\n", time_calc(philo->params->start_time), philo->name);
 	return (0);
 }
 
@@ -105,6 +117,7 @@ void	*dinner(void *arg)
 {
 	t_philo	*caio;
 
+	caio = NULL;
 	caio = (t_philo *)arg;
 	if (caio->params->philo_nbr == 1)
 	{
@@ -113,10 +126,11 @@ void	*dinner(void *arg)
 	}
 	if (caio->name % 2 == 0)
 		usleep(5000);
-	printf("Caio %i diz: Vou comer sem pagar, pq sou desses\n", caio->name);
+	//printf("Caio diz: seja bem vindo filosofo > %i <, sente-se\n", caio->name);
 	routine(caio);
 	if (caio->death == true)
-		printf("In %ld miliseconds %i died\n", time_calc(caio->params->start_time), caio->name);
+		printf("%ld %i died\n", time_calc(caio->params->start_time), caio->name);
+		//printf("In %ld miliseconds %i died\n", time_calc(caio->params->start_time), caio->name);
 	return NULL;
 }
 
@@ -124,13 +138,13 @@ static void	init_philosophers(t_philo *philo, t_param *param, int total_philo, i
 {
 	//t_philo *philo;
 	//philo->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * total_philo);
-	philo = (t_philo *)malloc(sizeof(t_philo) * total_philo + 64);
+	//philo = (t_philo *)malloc(sizeof(t_philo) * total_philo + 64);
 	while (i++ < total_philo)
 	{
 		//printf("CHEGOU O %i NA MESA!\n", i);
 		//memset(&philo[i], 0, sizeof(t_philo));
 		philo[i].name = i;
-		philo[i].fork_rigth = i;
+		philo[i].fork_right = i;
 		philo[i].fork_left = (i + 1) % total_philo;
 		//pthread_mutex_init(&philo[i].forks[i], NULL);
 		philo[i].params = param;
@@ -138,12 +152,12 @@ static void	init_philosophers(t_philo *philo, t_param *param, int total_philo, i
 	i = 0;
 	while (i++ < total_philo)
 	{
-		pthread_create(&philo[i].t_philo, NULL, &dinner, (void *)&philo[i]);
+		pthread_create(&philo[i].thread_philo, NULL, &dinner, (void *)&philo[i]);
 	}
 	i = 0;
 	while (i++ < total_philo)
 	{
-		pthread_join(philo[i].t_philo, NULL);
+		pthread_join(philo[i].thread_philo, NULL);
 	}
 	free(philo);
 	//printf("philo_name: %i\n", philo[1].name);
@@ -166,10 +180,14 @@ static int		init_dinner(t_philo *philo, t_param *param)
 int	main(int argc, char *argv[])
 {
 	t_param param;
-	t_philo philo;
+	t_philo *philo;
+	int i;
 
-	init_struct(&param, &philo);
-	//ft_memset(&param, 0, sizeof(t_param));
+	i = 0;
+	philo = (t_philo *)malloc(sizeof(t_philo) * (ft_atoi(argv[1])) + 64);
+	init_struct(&param, philo);
+	ft_memset(&param, 0, sizeof(t_param));
+	ft_memset(philo, 0, sizeof(t_philo));
 	//param = (void *)malloc(sizeof(t_param));
 	//param.start_time = NULL;
 	if (validate_args(argc) != 0)
@@ -178,10 +196,15 @@ int	main(int argc, char *argv[])
 		return(1);
 	get_paramm(argv, &param);
 	//printf("meals_nbr: %i\n", param.meals_nbr);
-	if (init_dinner(&philo, &param) != 0)
+	if (init_dinner(philo, &param) != 0)
 	{
 		printf("rodou init_dinner, vai sair  com a comanda sem pagar, oh la!\n");
 		return(1);
+	}
+	while (i < param.philo_nbr)
+	{
+		pthread_mutex_destroy(&param.forks[i]);
+		i++;
 	}
 	free(param.forks);
 	//while (i++ <= *argv[1])

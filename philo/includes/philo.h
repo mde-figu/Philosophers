@@ -28,10 +28,11 @@ typedef struct s_philo
 	bool				satisfied; //bool?
 	int				times_eat;
 	int				fork_left;
-	int				fork_rigth;
+	int				fork_right;
 	//pthread_mutex_t	*forks;
-	pthread_t	t_philo;
-	struct s_param		*params;
+	pthread_t		thread_philo;
+	//struct s_param		*params;
+	t_param			*params;
 }	t_philo;
 
 /********
@@ -58,6 +59,7 @@ int time_if_died(long int dead_time, long int last_meal);
 
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
-//void	*ft_memset(void *s, int c, size_t n);
+void	*ft_memset(void *s, int c, size_t n);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif
