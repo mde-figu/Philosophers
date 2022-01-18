@@ -55,7 +55,9 @@ int	eating(t_philo *philo)
 	printf("In %ld miliseconds %i is eating\n", time_calc(philo->params->start_time), philo->name); */
 	printf("%ld %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
 	printf("%ld %i is eating\n", time_calc(philo->params->start_time), philo->name);
-	philo->last_meal = time_calc(philo->params->start_time);
+	philo->last_meal = phil_clockins();
+	//philo->last_meal = time_calc(philo->params->start_time);
+	//printf("%i 's last meal was in: %li", philo->name, philo->last_meal);
 	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
 	{
 		philo->death = true;
