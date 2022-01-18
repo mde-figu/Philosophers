@@ -60,7 +60,7 @@ int	eating(t_philo *philo)
 	//printf("%i 's last meal was in: %li", philo->name, philo->last_meal);
 	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
 	{
-		philo->death = true;
+		philo->params->death = true;
 		return (1);
 	}
 	philo->meals++;
@@ -77,7 +77,7 @@ int	sleeping(t_philo *philo)
 {
 	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
 	{
-		philo->death = true;
+		philo->params->death = true;
 		return (1);
 	}
 	printf("%ld %i is sleeping\n", time_calc(philo->params->start_time), philo->name);
@@ -90,7 +90,7 @@ int	thinking(t_philo *philo)
 {
 	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
 	{
-		philo->death = true;
+		philo->params->death = true;
 		return (1);
 	}
 	printf("%ld %i is thinking\n", time_calc(philo->params->start_time), philo->name);
@@ -100,17 +100,17 @@ int	thinking(t_philo *philo)
 
 void	routine(t_philo *philo)
 {
-	while (42)
+	while (42 && philo->params->death == false)
 	{
-		if (philo->death == true)
+		if (philo->params->death == true)
 			return ;
 		if (philo->satisfied == true)
 			return ;
-		if (philo->death == false)
+		if (philo->params->death == false)
 			eating(philo);
-		if (philo->death == false)
+		if (philo->params->death == false)
 			sleeping(philo);
-		if (philo->death == false)
+		if (philo->params->death == false)
 			thinking(philo);
 	}
 }
@@ -130,9 +130,12 @@ void	*dinner(void *arg)
 		usleep(5000);
 	//printf("Caio diz: seja bem vindo filosofo > %i <, sente-se\n", caio->name);
 	routine(caio);
-	if (caio->death == true)
+	if (caio->params->death == true && caio->params->exit == false)
+	{
+		caio->params->exit = true;
 		printf("%ld %i died\n", time_calc(caio->params->start_time), caio->name);
 		//printf("In %ld miliseconds %i died\n", time_calc(caio->params->start_time), caio->name);
+	}
 	return NULL;
 }
 

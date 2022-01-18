@@ -12,10 +12,12 @@ typedef struct s_param
 {
 	int					philo_nbr;
 	int					t_todie;
+	bool				death;
 	int					t_toeat;
 	int					t_tosleep;
 	int					meals_nbr;
-	long int		start_time;
+	long int			start_time;
+	bool				exit;
 	pthread_mutex_t	*forks;
 }	t_param;
 
@@ -24,7 +26,7 @@ typedef struct s_philo
 	int				name;
 	long int		last_meal;
 	int					meals;
-	bool				death; //bool?
+	//bool				death; //bool?
 	bool				satisfied; //bool?
 	int				times_eat;
 	int				fork_left;

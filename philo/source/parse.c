@@ -6,11 +6,13 @@ void init_struct(t_param *param, t_philo *philo)
 	philo->name = 0;
 	philo->meals = 0;
 	philo->last_meal = 0;
-	philo->death = false;
+	//philo->death = false;
 	philo->satisfied = false;
 	philo->times_eat = 0;
 	philo->fork_left = 0;
 	philo->fork_right = 0;
+	param->death = false;
+	param->exit = false;
 	param->philo_nbr = 0;
 	param->t_todie = 0;
 	param->t_toeat = 0;
