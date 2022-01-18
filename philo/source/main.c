@@ -106,11 +106,11 @@ void	routine(t_philo *philo)
 			return ;
 		if (philo->satisfied == true)
 			return ;
-		if (philo->params->death == false)
+		if (philo->params->death == false && philo->params->exit == false)
 			eating(philo);
-		if (philo->params->death == false)
+		if (philo->params->death == false && philo->params->exit == false)
 			sleeping(philo);
-		if (philo->params->death == false)
+		if (philo->params->death == false && philo->params->exit == false)
 			thinking(philo);
 	}
 }
@@ -127,7 +127,7 @@ void	*dinner(void *arg)
 		return(NULL);
 	}
 	if (caio->name % 2 == 0)
-		usleep(5000);
+		usleep(1000);
 	//printf("Caio diz: seja bem vindo filosofo > %i <, sente-se\n", caio->name);
 	routine(caio);
 	if (caio->params->death == true && caio->params->exit == false)
