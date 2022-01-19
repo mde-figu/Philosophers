@@ -22,6 +22,7 @@ static int	entry_args_check(int argc, char *argv[])
 	{
 		if (!ft_isdigit(*argv[i]))
 		{
+			//printf("valor de i: %d arg é: %d \n", i, argv);
 			printf("Error: arguments must be all digits.\n");
 			return(1);
 		}
@@ -36,183 +37,176 @@ static int	entry_args_check(int argc, char *argv[])
 	return (0);
 }
 
-void	only_onephilo(t_philo *one)
+void	only_onephilo(t_dinner *one)
 {
-	printf("%ld %i has taken a fork\n", time_calc(one->params->start_time), one->name);
-	//printf("In %ld miliseconds %i has taken a fork\n", time_calc(one->params->start_time), one->name);
+	printf("%ld %i has taken a fork\n", time_calc(one->params->start_time), one->philo->name);
 	usleep(one->params->t_todie * 1000);
-	printf("%ld %i died\n", time_calc(one->params->start_time), one->name);
-	//printf("In %ld miliseconds %i died\n", time_calc(one->params->start_time), one->name);
+	printf("%ld %i died\n", time_calc(one->params->start_time), one->philo->name);
 }
 
-int	eating(t_philo *philo)
+int	eating(t_dinner *dinner)
 {
-	pthread_mutex_lock(&philo->params->forks[philo->fork_left]);
-	//printf("In %ld miliseconds %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
-	printf("%ld %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
-	pthread_mutex_lock(&philo->params->forks[philo->fork_right]);
-	/* printf("In %ld miliseconds %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
-	printf("In %ld miliseconds %i is eating\n", time_calc(philo->params->start_time), philo->name); */
-	printf("%ld %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
-	printf("%ld %i is eating\n", time_calc(philo->params->start_time), philo->name);
-	philo->last_meal = phil_clockins();
-	//philo->last_meal = time_calc(philo->params->start_time);
-	//printf("%i 's last meal was in: %li", philo->name, philo->last_meal);
-	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
+	pthread_mutex_lock(&dinner->params->forks[dinner->philo->fork_left]);
+	printf("%ld %i has taken a fork\n", time_calc(dinner->params->start_time), dinner->philo->name);
+	pthread_mutex_lock(&dinner->params->forks[dinner->philo->fork_right]);
+	printf("%ld %i has taken a fork\n", time_calc(dinner->params->start_time), dinner->philo->name);
+	printf("%ld %i is eating\n", time_calc(dinner->params->start_time), dinner->philo->name);
+	dinner->philo->last_meal = phil_clockins();
+	if (time_if_died(dinner->params->t_todie, dinner->philo->last_meal) == 0 && dinner->philo->satisfied == false)
 	{
-		philo->params->death = true;
+		dinner->params->death = true;
 		return (1);
 	}
-	philo->meals++;
-	if (philo->meals == philo->params->meals_nbr)
-		philo->satisfied = true;
-	//printf("In %ld miliseconds %i meals\n", time_calc(philo->params->start_time), philo->meals);
-	usleep(philo->params->t_toeat * 1000);
-	pthread_mutex_unlock(&philo->params->forks[philo->fork_right]);
-	pthread_mutex_unlock(&philo->params->forks[philo->fork_left]);
+	dinner->philo->meals++;
+	if (dinner->philo->meals == dinner->params->meals_nbr)
+		dinner->philo->satisfied = true;
+	usleep(dinner->params->t_toeat * 1000);
+	pthread_mutex_unlock(&dinner->params->forks[dinner->philo->fork_right]);
+	pthread_mutex_unlock(&dinner->params->forks[dinner->philo->fork_left]);
 	return (0);
 }
 
-int	sleeping(t_philo *philo)
+int	sleeping(t_dinner *dinner)
 {
-	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
+	if (time_if_died(dinner->params->t_todie, dinner->philo->last_meal) == 0 && dinner->philo->satisfied == false)
 	{
-		philo->params->death = true;
+		dinner->params->death = true;
 		return (1);
 	}
-	printf("%ld %i is sleeping\n", time_calc(philo->params->start_time), philo->name);
-	//printf("In %ld miliseconds %i is sleeping\n", time_calc(philo->params->start_time), philo->name);
-	usleep(philo->params->t_tosleep * 1000);
+	printf("%ld %i is sleeping\n", time_calc(dinner->params->start_time), dinner->philo->name);
+	usleep(dinner->params->t_tosleep * 1000);
 	return (0);
 }
 
-int	thinking(t_philo *philo)
+int	thinking(t_dinner *dinner)
 {
-	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
+	if (time_if_died(dinner->params->t_todie, dinner->philo->last_meal) == 0 && dinner->philo->satisfied == false)
 	{
-		philo->params->death = true;
+		dinner->params->death = true;
 		return (1);
 	}
-	printf("%ld %i is thinking\n", time_calc(philo->params->start_time), philo->name);
-	//printf("In %ld %i is thinking\n", time_calc(philo->params->start_time), philo->name);
+	printf("%ld %i is thinking\n", time_calc(dinner->params->start_time), dinner->philo->name);
+	usleep(dinner->params->t_tosleep * 1000);// ta certo isso?
 	return (0);
 }
 
-void	routine(t_philo *philo)
+void	routine(t_dinner *dinner)
 {
-	while (42 && philo->params->death == false)
+	while (42 && dinner->params->death == false)
 	{
-		if (philo->params->death == true)
+		if (dinner->params->death == true)
 			return ;
-		if (philo->satisfied == true)
+		if (dinner->philo->satisfied == true)
 			return ;
-		if (philo->params->death == false && philo->params->exit == false)
-			eating(philo);
-		if (philo->params->death == false && philo->params->exit == false)
-			sleeping(philo);
-		if (philo->params->death == false && philo->params->exit == false)
-			thinking(philo);
+		if (dinner->params->death == false && dinner->params->exit == false)
+			eating(dinner);
+		if (dinner->params->death == false && dinner->params->exit == false)
+			sleeping(dinner);
+		if (dinner->params->death == false && dinner->params->exit == false)
+			thinking(dinner);
 	}
 }
 
-void	*dinner(void *arg)
+void	*dinning(void *arg)
 {
-	t_philo	*caio;
+	//t_philo	*caio;
+	t_dinner *table;
 
-	caio = NULL;
-	caio = (t_philo *)arg;
-	if (caio->params->philo_nbr == 1)
+	//caio = NULL;
+	//caio = (t_philo *)arg;
+	table = NULL;
+	table = (t_dinner *)arg;
+	if (table->params->philo_nbr == 1)
 	{
-		only_onephilo(caio);
+		only_onephilo(table);
 		return(NULL);
 	}
-	if (caio->name % 2 == 0)
+	if (table->philo->name % 2 == 0)
 		usleep(1000);
-	//printf("Caio diz: seja bem vindo filosofo > %i <, sente-se\n", caio->name);
-	routine(caio);
-	if (caio->params->death == true && caio->params->exit == false)
+	routine(table);
+	if (table->params->death == true && table->params->exit == false)
 	{
-		caio->params->exit = true;
-		printf("%ld %i died\n", time_calc(caio->params->start_time), caio->name);
-		//printf("In %ld miliseconds %i died\n", time_calc(caio->params->start_time), caio->name);
+		table->params->exit = true;
+		printf("%ld %i died\n", time_calc(table->params->start_time), table->philo->name);
 	}
 	return NULL;
 }
 
-static void	init_philosophers(t_philo *philo, t_param *param, int total_philo, int i)
+static void	init_philosophers(t_dinner *dinner, int total_philo, int i)
 {
-	//t_philo *philo;
-	//philo->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * total_philo);
-	//philo = (t_philo *)malloc(sizeof(t_philo) * total_philo + 64);
 	while (i++ < total_philo)
 	{
-		//printf("CHEGOU O %i NA MESA!\n", i);
-		//memset(&philo[i], 0, sizeof(t_philo));
-		philo[i].name = i;
-		philo[i].fork_right = i;
-		philo[i].fork_left = (i + 1) % total_philo;
-		//pthread_mutex_init(&philo[i].forks[i], NULL);
-		philo[i].params = param;
+		dinner->philo[i].name = i;
+		printf("%d\n", i);
+		dinner->philo[i].fork_right = i;
+		dinner->philo[i].fork_left = (i + 1) % total_philo;
+		dinner->philo[i].satisfied = false;
 	}
 	i = 0;
 	while (i++ < total_philo)
 	{
-		pthread_create(&philo[i].thread_philo, NULL, &dinner, (void *)&philo[i]);
+		pthread_create(&dinner->philo[i].thread_philo, NULL, dinning, (void *)&dinner->philo[i]);
 	}
 	i = 0;
 	while (i++ < total_philo)
 	{
-		pthread_join(philo[i].thread_philo, NULL);
+		pthread_join(dinner->philo[i].thread_philo, NULL);
 	}
-	free(philo);
-	//printf("philo_name: %i\n", philo[1].name);
-	//printf("philo_nbr: %i\n", param->philo_nbr);
-	//printf("time_die: %i\n", param->t_todie);
-	//printf("time_eat: %i\n", param->t_toeat);
-	//printf("time_sleep: %i\n", param->t_tosleep);
+	free(dinner->philo);
 }
 
-static int		init_dinner(t_philo *philo, t_param *param)
+static int	init_mutex(t_dinner *d)
 {
-	//printf("CHEGUEI NA MESA!\n");
-	//philo = NULL;
-	init_philosophers(philo, param, param->philo_nbr, 0);
-	if (philo->satisfied)
+	int	i;
+
+	i = 0;
+	while (d->params->philo_nbr > i)
+	{
+		if (pthread_mutex_init(d->params->forks + i, NULL))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+static int		init_dinner(t_dinner *dinner)
+{
+	if (alloc_struct(dinner))
+		return (2);
+	if (init_mutex(dinner))
+		return (3);
+	init_philosophers(dinner, dinner->params->philo_nbr, 0);
+	if (dinner->philo->satisfied)
 		printf("Tuco comeu tudo e saiu sem pagar\n");
 	return (0);
 }
 
 int	main(int argc, char *argv[])
 {
-	t_param param;
-	t_philo *philo;
+	t_param		params;
+	t_dinner	dinner;
 	int i;
 
 	i = 0;
-	philo = (t_philo *)malloc(sizeof(t_philo) * (ft_atoi(argv[1])) + 64);
-	init_struct(&param, philo);
-	ft_memset(&param, 0, sizeof(t_param));
-	ft_memset(philo, 0, sizeof(t_philo));
-	//param = (void *)malloc(sizeof(t_param));
-	//param.start_time = NULL;
+	//init_struct(&dinner);
+	dinner.params = &params;
+	//ft_memset(&param, 0, sizeof(t_param));
+	//ft_memset(philo, 0, sizeof(t_philo));
 	if (validate_args(argc) != 0)
 		return(1);
 	if (entry_args_check(argc, argv) != 0)
 		return(1);
-	get_paramm(argv, &param);
-	//printf("meals_nbr: %i\n", param.meals_nbr);
-	if (init_dinner(philo, &param) != 0)
+	get_paramm(argv, &params);
+	if (init_dinner(&dinner) != 0)
 	{
 		printf("rodou init_dinner, vai sair  com a comanda sem pagar, oh la!\n");
 		return(1);
 	}
-	while (i < param.philo_nbr)
+	while (i < params.philo_nbr)
 	{
-		pthread_mutex_destroy(&param.forks[i]);
+		pthread_mutex_destroy(&params.forks[i]);
 		i++;
 	}
-	free(param.forks);
-	//while (i++ <= *argv[1])
-	//	init_philosophers(i, argv, argc);
+	free(params.forks);
 	return(0);
 }

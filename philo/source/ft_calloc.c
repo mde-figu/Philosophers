@@ -1,3 +1,5 @@
+#include "../includes/philo.h"
+
 void	*ft_calloc(size_t count, size_t size)
 {
 	size_t	total_size;

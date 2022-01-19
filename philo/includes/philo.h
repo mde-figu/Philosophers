@@ -18,24 +18,28 @@ typedef struct s_param
 	int					meals_nbr;
 	long int			start_time;
 	bool				exit;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t		*forks;
 }	t_param;
 
 typedef struct s_philo
 {
-	int				name;
-	long int		last_meal;
+	int					name;
+	long int			last_meal;
 	int					meals;
-	//bool				death; //bool?
-	bool				satisfied; //bool?
-	int				times_eat;
-	int				fork_left;
-	int				fork_right;
-	//pthread_mutex_t	*forks;
-	pthread_t		thread_philo;
-	//struct s_param		*params;
-	t_param			*params;
+	bool				satisfied;
+	int					times_eat;
+	int					fork_left;
+	int					fork_right;
+	pthread_t			thread_philo;
+	//t_param				*params;
 }	t_philo;
+
+typedef struct s_dinner
+{
+	t_param				*params;
+	t_philo				*philo;
+}	t_dinner;
+
 
 /********
 ** DINNER
@@ -45,8 +49,9 @@ void		*dinner();
 /********
 ** PARSE
 *********/
-void init_struct(t_param *param, t_philo *philo);
+void	init_struct(t_dinner *dinner);
 void	get_paramm(char *argv[], t_param *param);
+int		alloc_struct(t_dinner *dinner);
 
 /********
 ** TIME
