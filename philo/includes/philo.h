@@ -18,6 +18,7 @@ typedef struct s_param
 	int					meals_nbr;
 	long int			start_time;
 	bool				exit;
+	pthread_mutex_t dead;
 	pthread_mutex_t	*forks;
 }	t_param;
 
@@ -41,6 +42,7 @@ typedef struct s_philo
 ** DINNER
 *********/
 void		*dinner();
+void		*end_dinner(void *phi);
 
 /********
 ** PARSE
