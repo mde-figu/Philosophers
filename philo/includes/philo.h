@@ -8,16 +8,19 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define TRUE 1
+# define FALSE 0
+
 typedef struct s_param
 {
 	int					philo_nbr;
 	int					t_todie;
-	bool				death;
 	int					t_toeat;
 	int					t_tosleep;
 	int					meals_nbr;
 	long int			start_time;
-	bool				exit;
+	int						who_dead;
+	//bool				exit;
 	pthread_mutex_t dead;
 	pthread_mutex_t	*forks;
 }	t_param;

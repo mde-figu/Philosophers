@@ -48,25 +48,26 @@ void	only_onephilo(t_philo *one)
 int	eating(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->params->forks[philo->fork_left]);
+	if (philo->params->who_dead != 0)
+		return (1);
 	//printf("In %ld miliseconds %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
 	printf("\033[0;32m%ld %i has taken the left fork\n\033[0m", time_calc(philo->params->start_time), philo->name);
 	pthread_mutex_lock(&philo->params->forks[philo->fork_right]);
+	if (philo->params->who_dead != 0)
+		return (1);
 	/* printf("In %ld miliseconds %i has taken a fork\n", time_calc(philo->params->start_time), philo->name);
 	printf("In %ld miliseconds %i is eating\n", time_calc(philo->params->start_time), philo->name); */
 	printf("\033[0;35m%ld %i has taken the right fork\n\033[0m", time_calc(philo->params->start_time), philo->name);
+	if (philo->params->who_dead != 0)
+		return (1);
 	printf("\033[0;33m%ld %i is eating\n\033[0m", time_calc(philo->params->start_time), philo->name);
 	philo->last_meal = phil_clockins();
 	//philo->last_meal = time_calc(philo->params->start_time);
 	//printf("%i 's last meal was in: %li", philo->name, philo->last_meal);
-	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
-	{
-		philo->params->death = true;
-		return (1);
-	}
 	philo->meals++;
-	if (philo->meals == philo->params->meals_nbr)
-		philo->satisfied = true;
 	//printf("In %ld miliseconds %i meals\n", time_calc(philo->params->start_time), philo->meals);
+	if (philo->params->who_dead != 0)
+		return (1);
 	usleep(philo->params->t_toeat * 1000);
 	pthread_mutex_unlock(&philo->params->forks[philo->fork_right]);
 	pthread_mutex_unlock(&philo->params->forks[philo->fork_left]);
@@ -75,11 +76,8 @@ int	eating(t_philo *philo)
 
 int	sleeping(t_philo *philo)
 {
-	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
-	{
-		philo->params->death = true;
+	if (philo->params->who_dead != 0)
 		return (1);
-	}
 	printf("%ld %i is sleeping\n", time_calc(philo->params->start_time), philo->name);
 	//printf("In %ld miliseconds %i is sleeping\n", time_calc(philo->params->start_time), philo->name);
 	usleep(philo->params->t_tosleep * 1000);
@@ -88,31 +86,46 @@ int	sleeping(t_philo *philo)
 
 int	thinking(t_philo *philo)
 {
-	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false)
-	{
-		philo->params->death = true;
+	if (philo->params->who_dead != 0)
 		return (1);
-	}
 	printf("\033[0;31m%ld %i is thinking\n\033[0m", time_calc(philo->params->start_time), philo->name);
 	//printf("In %ld %i is thinking\n", time_calc(philo->params->start_time), philo->name);
 	return (0);
 }
 
-void	routine(t_philo *philo)
+int	routine(t_philo *philo)
 {
-	while (42 && philo->params->death == false)
-	{
-		if (philo->params->death == true)
-			return ;
-		if (philo->satisfied == true)
-			return ;
-		if (philo->params->death == false && philo->params->exit == false)
-			eating(philo);
-		if (philo->params->death == false && philo->params->exit == false)
-			sleeping(philo);
-		if (philo->params->death == false && philo->params->exit == false)
-			thinking(philo);
-	}
+	if(eating(philo) == 1 || philo->satisfied == true)
+		return (1);
+	if(sleeping(philo) == 1 || philo->satisfied == true)
+		return (1);
+	if(thinking(philo) == 1 || philo->satisfied == true)
+		return (1);
+	return (0);
+}
+
+int		verify(t_philo *philo)
+{
+	if (philo->params->who_dead != 0)
+		return (1);
+	if (philo->params->meals_nbr != 0)
+		if (philo->meals == philo->params->meals_nbr)
+		{
+			philo->satisfied = true;
+			return (1);
+		}
+	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0)
+		{
+			pthread_mutex_lock(&philo->params->dead);
+			if (philo->params->who_dead == 0)
+			{
+				philo->params->who_dead = philo->name;
+				printf("\033[0;31m%ld %i died\n\033[0m", time_calc(philo->params->start_time), philo->name);
+			}
+			pthread_mutex_unlock(&philo->params->dead);
+			return (1);
+		}
+	return (0);
 }
 
 void	*end_dinner(void *phi)
@@ -120,27 +133,8 @@ void	*end_dinner(void *phi)
 	t_philo *philo;
 
 	philo = (t_philo *)phi;
-	while (42)
-	{
-		if (philo->params->death == true)
-			return ((void *)1) ;
-		if (philo->satisfied)
-			break ;
-		if (philo->meals > 0)
-		{
-			if (time_if_died(philo->params->t_todie, philo->last_meal) == 0 && philo->satisfied == false && philo->params->death == false)
-			{
-				pthread_mutex_lock(&philo->params->dead);
-				if (philo->params->death == false)
-				{
-					philo->params->death = true;
-					printf("\033[0;31m%ld %i died\n\033[0m", time_calc(philo->params->start_time), philo->name);
-				}
-				pthread_mutex_lock(&philo->params->dead);
-				return ((void *)1);
-			}
-		}
-	}
+	while (!verify(philo))
+		continue ;
 	return (NULL);
 }
 
@@ -161,7 +155,9 @@ void	*dinner(void *arg)
 		usleep(1000);
 	pthread_detach(waiter);
 	//printf("Caio diz: seja bem vindo filosofo > %i <, sente-se\n", caio->name);
-	routine(caio);
+	while(!routine(caio))
+		continue ;
+
 	//if (caio->params->death == true && caio->params->exit == false)
 	//{
 	//	caio->params->exit = true;
@@ -209,8 +205,8 @@ static int		init_dinner(t_philo *philo, t_param *param)
 	//printf("CHEGUEI NA MESA!\n");
 	//philo = NULL;
 	init_philosophers(philo, param, param->philo_nbr, 0);
-	if (philo->satisfied)
-		printf("Tuco comeu tudo e saiu sem pagar\n");
+	//if (philo->satisfied)
+	//	printf("Tuco comeu tudo e saiu sem pagar\n");
 	return (0);
 }
 
@@ -227,9 +223,7 @@ int	main(int argc, char *argv[])
 	ft_memset(philo, 0, sizeof(t_philo));
 	//param = (void *)malloc(sizeof(t_param));
 	//param.start_time = NULL;
-	if (validate_args(argc) != 0)
-		return(1);
-	if (entry_args_check(argc, argv) != 0)
+	if (validate_args(argc) && entry_args_check(argc, argv))
 		return(1);
 	get_paramm(argv, &param);
 	//printf("meals_nbr: %i\n", param.meals_nbr);
