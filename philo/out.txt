@@ -1,132 +1,379 @@
-==99314== Memcheck, a memory error detector
-==99314== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==99314== Using Valgrind-3.17.0.GIT-lbmacos and LibVEX; rerun with -h for copyright info
-==99314== Command: ./philo 5 20 21 80 5
-==99314== Parent PID: 99313
-==99314== 
---99314-- run: /usr/bin/dsymutil "./philo"
-==99314== Conditional jump or move depends on uninitialised value(s)
-==99314==    at 0x100614108: _platform_memchr$VARIANT$Base (in /usr/lib/system/libsystem_platform.dylib)
-==99314==    by 0x1003BD7B4: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
-==99314==    by 0x1003C5CCB: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
-==99314==    by 0x1003EAAD2: __v2printf (in /usr/lib/system/libsystem_c.dylib)
-==99314==    by 0x1003C32B1: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
-==99314==    by 0x1003C141D: printf (in /usr/lib/system/libsystem_c.dylib)
-==99314==    by 0x1000037A1: init_philosophers (main.c:140)
-==99314==    by 0x10000369B: init_dinner (main.c:178)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314==  Uninitialised value was created by a stack allocation
-==99314==    at 0x1003C339B: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
-==99314== 
-==99314== Invalid write of size 4
-==99314==    at 0x10000378F: init_philosophers (main.c:139)
-==99314==    by 0x10000369B: init_dinner (main.c:178)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314==  Address 0x1008286f0 is 0 bytes after a block of size 240 alloc'd
-==99314==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==99314==    by 0x100003A81: alloc_struct (parse.c:55)
-==99314==    by 0x100003654: init_dinner (main.c:174)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314== 
-==99314== Invalid write of size 4
-==99314==    at 0x1000037BB: init_philosophers (main.c:141)
-==99314==    by 0x10000369B: init_dinner (main.c:178)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314==  Address 0x100828710 is 32 bytes before a block of size 320 in arena "client"
-==99314== 
-==99314== Invalid write of size 4
-==99314==    at 0x1000037E3: init_philosophers (main.c:142)
-==99314==    by 0x10000369B: init_dinner (main.c:178)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314==  Address 0x10082870c is 28 bytes after a block of size 240 in arena "client"
-==99314== 
-==99314== Invalid write of size 1
-==99314==    at 0x1000037FC: init_philosophers (main.c:143)
-==99314==    by 0x10000369B: init_dinner (main.c:178)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314==  Address 0x100828704 is 20 bytes after a block of size 240 alloc'd
-==99314==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==99314==    by 0x100003A81: alloc_struct (parse.c:55)
-==99314==    by 0x100003654: init_dinner (main.c:174)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314== 
-==99314== Invalid write of size 8
-==99314==    at 0x10062CDFE: _pthread_create (in /usr/lib/system/libsystem_pthread.dylib)
-==99314==    by 0x100003870: init_philosophers (main.c:148)
-==99314==    by 0x10000369B: init_dinner (main.c:178)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314==  Address 0x100828718 is 24 bytes before a block of size 320 alloc'd
-==99314==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==99314==    by 0x100003ABA: alloc_struct (parse.c:58)
-==99314==    by 0x100003654: init_dinner (main.c:174)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314== 
-==99314== Thread 2:
-==99314== Use of uninitialised value of size 8
-==99314==    at 0x100003363: dinning (main.c:119)
-==99314==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
-==99314==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
-==99314==  Uninitialised value was created by a heap allocation
-==99314==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==99314==    by 0x100003A81: alloc_struct (parse.c:55)
-==99314==    by 0x100003654: init_dinner (main.c:174)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314== 
-==99314== Invalid read of size 4
-==99314==    at 0x100003363: dinning (main.c:119)
-==99314==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
-==99314==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
-==99314==  Address 0x1 is not stack'd, malloc'd or (recently) free'd
-==99314== 
-==99314== 
-==99314== Process terminating with default action of signal 11 (SIGSEGV)
-==99314==  Access not within mapped region at address 0x1
-==99314==    at 0x100003363: dinning (main.c:119)
-==99314==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
-==99314==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
-==99314==  If you believe this happened as a result of a stack
-==99314==  overflow in your program's main thread (unlikely but
-==99314==  possible), you can try to increase the size of the
-==99314==  main thread stack using the --main-stacksize= flag.
-==99314==  The main thread stack size used in this run was 67104768.
-==99314== 
-==99314== HEAP SUMMARY:
-==99314==     in use at exit: 18,708 bytes in 164 blocks
-==99314==   total heap usage: 178 allocs, 14 frees, 23,452 bytes allocated
-==99314== 
-==99314== Thread 1:
-==99314== 240 bytes in 1 blocks are still reachable in loss record 26 of 39
-==99314==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==99314==    by 0x100003A81: alloc_struct (parse.c:55)
-==99314==    by 0x100003654: init_dinner (main.c:174)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314== 
-==99314== 320 bytes in 1 blocks are still reachable in loss record 31 of 39
-==99314==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==99314==    by 0x100003ABA: alloc_struct (parse.c:58)
-==99314==    by 0x100003654: init_dinner (main.c:174)
-==99314==    by 0x1000034A8: main (main.c:200)
-==99314== 
-==99314== 2,048 bytes in 1 blocks are still reachable in loss record 36 of 39
-==99314==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==99314==    by 0x100706079: objc::DenseMap<char const*, objc::detail::DenseSetEmpty, objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>, objc::DenseMapInfo<char const*>, objc::detail::DenseSetPair<char const*> >::grow(unsigned int) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x10070600D: objc::detail::DenseSetPair<char const*>* objc::DenseMapBase<objc::DenseMap<char const*, objc::detail::DenseSetEmpty, objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>, objc::DenseMapInfo<char const*>, objc::detail::DenseSetPair<char const*> >, char const*, objc::detail::DenseSetEmpty, objc::DenseMapValueInfo<objc::detail::DenseSetEmpty>, objc::DenseMapInfo<char const*>, objc::detail::DenseSetPair<char const*> >::InsertIntoBucketImpl<char const*>(char const* const&, char const* const&, objc::detail::DenseSetPair<char const*>*) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x100709EC1: __sel_registerName(char const*, bool, bool) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x1006F7D4B: fixupMethodList(method_list_t*, bool, bool) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x1006ED835: prepareMethodLists(objc_class*, method_list_t**, int, bool, bool) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x10070007C: realizeClassWithoutSwift(objc_class*, objc_class*) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x1006FFB7B: realizeClassWithoutSwift(objc_class*, objc_class*) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x1006FFB54: realizeClassWithoutSwift(objc_class*, objc_class*) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x1006FFB54: realizeClassWithoutSwift(objc_class*, objc_class*) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x1006FFB54: realizeClassWithoutSwift(objc_class*, objc_class*) (in /usr/lib/libobjc.A.dylib)
-==99314==    by 0x1006EBA1E: map_images_nolock (in /usr/lib/libobjc.A.dylib)
-==99314== 
-==99314== LEAK SUMMARY:
-==99314==    definitely lost: 0 bytes in 0 blocks
-==99314==    indirectly lost: 0 bytes in 0 blocks
-==99314==      possibly lost: 0 bytes in 0 blocks
-==99314==    still reachable: 2,608 bytes in 3 blocks
-==99314==         suppressed: 16,100 bytes in 161 blocks
-==99314== 
-==99314== For lists of detected and suppressed errors, rerun with: -s
-==99314== ERROR SUMMARY: 12 errors from 8 contexts (suppressed: 7 from 7)
+==11724== Memcheck, a memory error detector
+==11724== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==11724== Using Valgrind-3.17.0.GIT-lbmacos and LibVEX; rerun with -h for copyright info
+==11724== Command: ./philo 5 20 21 80 5
+==11724== Parent PID: 11723
+==11724== 
+==11724== Invalid write of size 4
+==11724==    at 0x1000037AF: init_philosophers (main.c:142)
+==11724==    by 0x1000036BB: init_dinner (main.c:181)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724==  Address 0x1008286f0 is 0 bytes after a block of size 240 alloc'd
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Invalid write of size 4
+==11724==    at 0x1000037CA: init_philosophers (main.c:144)
+==11724==    by 0x1000036BB: init_dinner (main.c:181)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724==  Address 0x100828710 is 32 bytes before a block of size 320 in arena "client"
+==11724== 
+==11724== Invalid write of size 4
+==11724==    at 0x1000037ED: init_philosophers (main.c:145)
+==11724==    by 0x1000036BB: init_dinner (main.c:181)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724==  Address 0x10082870c is 28 bytes after a block of size 240 in arena "client"
+==11724== 
+==11724== Invalid write of size 1
+==11724==    at 0x100003806: init_philosophers (main.c:146)
+==11724==    by 0x1000036BB: init_dinner (main.c:181)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724==  Address 0x100828704 is 20 bytes after a block of size 240 alloc'd
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Invalid write of size 8
+==11724==    at 0x10062CDFE: _pthread_create (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100003868: init_philosophers (main.c:151)
+==11724==    by 0x1000036BB: init_dinner (main.c:181)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724==  Address 0x100828718 is 24 bytes before a block of size 320 alloc'd
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003ABA: alloc_struct (parse.c:58)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Thread 2:
+==11724== Conditional jump or move depends on uninitialised value(s)
+==11724==    at 0x1000033AF: dinning (main.c:127)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Conditional jump or move depends on uninitialised value(s)
+==11724==    at 0x10000325F: routine (main.c:95)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a stack allocation
+==11724==    at 0x100011025: _dyld_start (in /usr/lib/dyld)
+==11724== 
+==11724== Conditional jump or move depends on uninitialised value(s)
+==11724==    at 0x100003278: routine (main.c:97)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a stack allocation
+==11724==    at 0x100011025: _dyld_start (in /usr/lib/dyld)
+==11724== 
+==11724== Conditional jump or move depends on uninitialised value(s)
+==11724==    at 0x100003297: routine (main.c:99)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Conditional jump or move depends on uninitialised value(s)
+==11724==    at 0x1000032B5: routine (main.c:101)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a stack allocation
+==11724==    at 0x100011025: _dyld_start (in /usr/lib/dyld)
+==11724== 
+==11724== Conditional jump or move depends on uninitialised value(s)
+==11724==    at 0x1000032CE: routine (main.c:101)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a stack allocation
+==11724==    at 0x100011025: _dyld_start (in /usr/lib/dyld)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x1006275AD: pthread_mutex_lock (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x1006275BB: pthread_mutex_lock (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x1006275CB: pthread_mutex_lock (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x10062760B: pthread_mutex_lock (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x100627618: pthread_mutex_lock (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Thread 6:
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x10062786F: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002EF1: eating (main.c:49)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x10062788A: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002EF1: eating (main.c:49)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x1006278E5: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002EF1: eating (main.c:49)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x100627909: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002EF1: eating (main.c:49)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x100629906: _pthread_mutex_firstfit_lock_wait (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627936: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002EF1: eating (main.c:49)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Thread 2:
+==11724== Conditional jump or move depends on uninitialised value(s)
+==11724==    at 0x1003C6135: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003EAAD2: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C32B1: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C141D: printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x100002F1F: eating (main.c:50)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Conditional jump or move depends on uninitialised value(s)
+==11724==    at 0x1003C7A07: __ultoa (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C4D75: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003EAAD2: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C32B1: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C141D: printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x100002F1F: eating (main.c:50)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Conditional jump or move depends on uninitialised value(s)
+==11724==    at 0x100614108: _platform_memchr$VARIANT$Base (in /usr/lib/system/libsystem_platform.dylib)
+==11724==    by 0x1003BD7B4: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C5CCB: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003EAAD2: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C32B1: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C141D: printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x100002F1F: eating (main.c:50)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Syscall param write(buf) points to uninitialised byte(s)
+==11724==    at 0x1005CAE66: write$NOCANCEL (in /usr/lib/system/libsystem_kernel.dylib)
+==11724==    by 0x1003C236F: _swrite (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003BB0C6: __sflush (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003BD86F: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C74FF: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003EAAD2: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C32B1: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C141D: printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x100002F1F: eating (main.c:50)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Address 0x1008288b3 is 3 bytes inside a block of size 4,096 alloc'd
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x1003BE367: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003D1C4D: __swsetup (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003EA94E: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C32B1: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x1003C141D: printf (in /usr/lib/system/libsystem_c.dylib)
+==11724==    by 0x100002F1F: eating (main.c:50)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x10062786F: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002F48: eating (main.c:51)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x10062788A: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002F48: eating (main.c:51)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x1006278E5: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002F48: eating (main.c:51)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x100627909: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002F48: eating (main.c:51)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 
+==11724== Use of uninitialised value of size 8
+==11724==    at 0x100629906: _pthread_mutex_firstfit_lock_wait (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627936: _pthread_mutex_firstfit_lock_slow (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100002F48: eating (main.c:51)
+==11724==    by 0x1000032DC: routine (main.c:102)
+==11724==    by 0x1000033C7: dinning (main.c:129)
+==11724==    by 0x10062C108: _pthread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==    by 0x100627B8A: thread_start (in /usr/lib/system/libsystem_pthread.dylib)
+==11724==  Uninitialised value was created by a heap allocation
+==11724==    at 0x100124545: malloc (in /Users/tucapulcinelli/.brew/Cellar/valgrind/HEAD-adaae87/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==11724==    by 0x100003A81: alloc_struct (parse.c:55)
+==11724==    by 0x100003674: init_dinner (main.c:177)
+==11724==    by 0x1000034C8: main (main.c:203)
+==11724== 

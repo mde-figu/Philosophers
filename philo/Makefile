@@ -1,7 +1,7 @@
 
 NAME = philo
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 INCLUDES = ./includes/philo.h
 
 SRC_PATH =	./source \

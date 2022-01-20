@@ -107,27 +107,23 @@ void	routine(t_dinner *dinner)
 	}
 }
 
-void	*dinning(void *arg)
+void	*dinning(void *d_dinner)
 {
-	//t_philo	*caio;
-	t_dinner *table;
-
-	//caio = NULL;
-	//caio = (t_philo *)arg;
-	table = NULL;
-	table = (t_dinner *)arg;
-	if (table->params->philo_nbr == 1)
+	t_dinner	*dinner;
+	
+	dinner = d_dinner;
+	if (dinner->params->philo_nbr == 1)
 	{
-		only_onephilo(table);
+		only_onephilo(dinner);
 		return(NULL);
 	}
-	if (table->philo->name % 2 == 0)
+	if (dinner->philo->name % 2 == 0)
 		usleep(1000);
-	routine(table);
-	if (table->params->death == true && table->params->exit == false)
+	routine(dinner);
+	if (dinner->params->death == true && dinner->params->exit == false)
 	{
-		table->params->exit = true;
-		printf("%ld %i died\n", time_calc(table->params->start_time), table->philo->name);
+		dinner->params->exit = true;
+		printf("%ld %i died\n", time_calc(dinner->params->start_time), dinner->philo->name);
 	}
 	return NULL;
 }
@@ -137,7 +133,7 @@ static void	init_philosophers(t_dinner *dinner, int total_philo, int i)
 	while (i++ < total_philo)
 	{
 		dinner->philo[i].name = i;
-		printf("%d\n", i);
+		//printf("%d\n", i);
 		dinner->philo[i].fork_right = i;
 		dinner->philo[i].fork_left = (i + 1) % total_philo;
 		dinner->philo[i].satisfied = false;
@@ -145,7 +141,7 @@ static void	init_philosophers(t_dinner *dinner, int total_philo, int i)
 	i = 0;
 	while (i++ < total_philo)
 	{
-		pthread_create(&dinner->philo[i].thread_philo, NULL, dinning, (void *)&dinner->philo[i]);
+		pthread_create(&dinner->philo[i].thread_philo, NULL, dinning, dinner);
 	}
 	i = 0;
 	while (i++ < total_philo)
