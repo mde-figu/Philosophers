@@ -143,17 +143,19 @@ void	*dinner(void *arg)
 	pthread_t waiter;
 	t_philo	*caio;
 
-	caio = NULL;
 	caio = (t_philo *)arg;
+	caio->last_meal = caio->params->start_time;
+
 	if (caio->params->philo_nbr == 1)
 	{
 		only_onephilo(caio);
 		return (NULL);
 	}
+	//printf("phi - %d, for L - %d, for R - %d\n", caio->name, caio->fork_left, caio->fork_right);
 	pthread_create(&waiter, NULL, &end_dinner, caio);
+	pthread_detach(waiter);
 	if (caio->name % 2 == 0)
 		usleep(1000);
-	pthread_detach(waiter);
 	//printf("Caio diz: seja bem vindo filosofo > %i <, sente-se\n", caio->name);
 	while(!routine(caio))
 		continue ;
@@ -167,31 +169,36 @@ void	*dinner(void *arg)
 	return NULL;
 }
 
-static void	init_philosophers(t_philo *philo, t_param *param, int total_philo, int i)
+static void	init_philosophers(t_philo *philo, t_param *param, int total_philo)
 {
 	//t_philo *philo;
 	//philo->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * total_philo);
 	//philo = (t_philo *)malloc(sizeof(t_philo) * total_philo + 64);
-	while (i++ < total_philo)
+	int i;
+
+	i = -1;
+	while (++i < total_philo)
 	{
 		//printf("CHEGOU O %i NA MESA!\n", i);
 		//memset(&philo[i], 0, sizeof(t_philo));
-		philo[i].name = i;
-		philo[i].fork_right = i;
-		philo[i].fork_left = (i + 1) % total_philo;
+		philo[i].name = i + 1;
+		philo[i].fork_left = i;
+		philo[i].fork_right = (i + 1) % total_philo;
 		//pthread_mutex_init(&philo[i].forks[i], NULL);
 		philo[i].params = param;
 	}
-	i = 0;
-	while (i++ < total_philo)
+	i = -1;
+	param->start_time = phil_clockins();
+	while (++i < total_philo)
 	{
 		pthread_create(&philo[i].thread_philo, NULL, &dinner, (void *)&philo[i]);
 	}
-	i = 0;
-	while (i++ < total_philo)
+	i = -1;
+	while (++i < total_philo)
 	{
 		pthread_join(philo[i].thread_philo, NULL);
 	}
+	exit(0);
 	free(philo);
 	//printf("philo_name: %i\n", philo[1].name);
 	//printf("philo_nbr: %i\n", param->philo_nbr);
@@ -204,7 +211,7 @@ static int		init_dinner(t_philo *philo, t_param *param)
 {
 	//printf("CHEGUEI NA MESA!\n");
 	//philo = NULL;
-	init_philosophers(philo, param, param->philo_nbr, 0);
+	init_philosophers(philo, param, param->philo_nbr);
 	//if (philo->satisfied)
 	//	printf("Tuco comeu tudo e saiu sem pagar\n");
 	return (0);
@@ -217,7 +224,9 @@ int	main(int argc, char *argv[])
 	int i;
 
 	i = 0;
-	philo = (t_philo *)malloc(sizeof(t_philo) * (ft_atoi(argv[1])) + 64);
+	philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+
+
 	init_struct(&param, philo);
 	ft_memset(&param, 0, sizeof(t_param));
 	ft_memset(philo, 0, sizeof(t_philo));

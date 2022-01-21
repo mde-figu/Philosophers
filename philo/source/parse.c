@@ -40,8 +40,8 @@ void	get_paramm(char *argv[], t_param *param)
 		param->meals_nbr = ft_atoi(argv[5]);
 	else
 		param->meals_nbr = 0;
-	param->start_time = phil_clockins();
-	param->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * (param->philo_nbr + 32));
+	param->start_time = 0;
+	param->forks = malloc(sizeof(pthread_mutex_t) * (param->philo_nbr));
 	while (i < param->philo_nbr)
 	{
 		pthread_mutex_init(&param->forks[i], NULL);

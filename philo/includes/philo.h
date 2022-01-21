@@ -19,19 +19,19 @@ typedef struct s_param
 	int					t_tosleep;
 	int					meals_nbr;
 	long int			start_time;
-	int						who_dead;
+	int					who_dead;
 	//bool				exit;
-	pthread_mutex_t dead;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t		dead;
+	pthread_mutex_t		*forks;
 }	t_param;
 
 typedef struct s_philo
 {
 	int				name;
 	long int		last_meal;
-	int					meals;
-	//bool				death; //bool?
-	bool				satisfied; //bool?
+	int				meals;
+	//bool			death; //bool?
+	bool			satisfied; //bool?
 	int				times_eat;
 	int				fork_left;
 	int				fork_right;
