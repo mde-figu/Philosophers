@@ -9,9 +9,8 @@ SRC_PATH =	./source \
 SRC =		main.c\
 			parse.c\
 			time.c\
-			ft_atoi.c\
-			ft_isdigit.c\
-			ft_memset.c\
+			validate.c\
+			utils.c\
 
 
 OBJ_DIR	=	./builds
@@ -29,7 +28,7 @@ $(OBJ_DIR)/%.o:	%.c ./includes/philo.h
 	gcc -c -o $@ $(CFLAGS) -I includes -g3 $<
 
 valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file="out.txt" ./philo 5 20 21 80 5
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file="out.txt" ./philo 2 200 100 100 3
 #	valgrind --tool=helgrind ./philo 5 20 21 80 5
 
 git:

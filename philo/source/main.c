@@ -1,41 +1,5 @@
 #include "../includes/philo.h"
 
-static int	validate_args(int argc)
-{
-	if (argc < 5 || argc > 6)
-	{
-		printf("Error: wrong number of arguments.\n");
-		return (1);
-	}
-	return (0);
-}
-
-static int	entry_args_check(int argc, char *argv[])
-{
-	int i;
-	long int temp;
-
-	i = 1;
-	temp = 0;
-	argc--;
-	while (i <= argc)
-	{
-		if (!ft_isdigit(*argv[i]))
-		{
-			printf("Error: arguments must be all digits.\n");
-			return(1);
-		}
-		temp = ft_atoi(argv[i]);
-		if (!temp)
-		{
-			printf("Error: arguments must be integers.\n");
-			return(1);
-		}
-		i++;
-	}
-	return (0);
-}
-
 void	only_onephilo(t_philo *one)
 {
 	printf("%ld %i has taken a fork\n", time_calc(one->params->start_time), one->name);
@@ -140,7 +104,7 @@ void	*end_dinner(void *phi)
 
 void	*dinner(void *arg)
 {
-	pthread_t waiter;
+	//pthread_t waiter;
 	t_philo	*caio;
 
 	caio = (t_philo *)arg;
@@ -151,26 +115,16 @@ void	*dinner(void *arg)
 		only_onephilo(caio);
 		return (NULL);
 	}
-	//printf("phi - %d, for L - %d, for R - %d\n", caio->name, caio->fork_left, caio->fork_right);
-	pthread_create(&waiter, NULL, &end_dinner, caio);
-	pthread_detach(waiter);
 	if (caio->name % 2 == 0)
 		usleep(1000);
-	//printf("Caio diz: seja bem vindo filosofo > %i <, sente-se\n", caio->name);
 	while(!routine(caio))
 		continue ;
-
-	//if (caio->params->death == true && caio->params->exit == false)
-	//{
-	//	caio->params->exit = true;
-		//printf("%ld %i died\n", time_calc(caio->params->start_time), caio->name);
-		//printf("In %ld miliseconds %i died\n", time_calc(caio->params->start_time), caio->name);
-	//}
 	return NULL;
 }
 
 static void	init_philosophers(t_philo *philo, t_param *param, int total_philo)
 {
+	pthread_t waiter;
 	//t_philo *philo;
 	//philo->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * total_philo);
 	//philo = (t_philo *)malloc(sizeof(t_philo) * total_philo + 64);
@@ -179,41 +133,27 @@ static void	init_philosophers(t_philo *philo, t_param *param, int total_philo)
 	i = -1;
 	while (++i < total_philo)
 	{
-		//printf("CHEGOU O %i NA MESA!\n", i);
-		//memset(&philo[i], 0, sizeof(t_philo));
 		philo[i].name = i + 1;
 		philo[i].fork_left = i;
 		philo[i].fork_right = (i + 1) % total_philo;
-		//pthread_mutex_init(&philo[i].forks[i], NULL);
 		philo[i].params = param;
 	}
 	i = -1;
 	param->start_time = phil_clockins();
 	while (++i < total_philo)
-	{
 		pthread_create(&philo[i].thread_philo, NULL, &dinner, (void *)&philo[i]);
-	}
+	pthread_create(&waiter, NULL, &end_dinner, philo);
 	i = -1;
 	while (++i < total_philo)
-	{
 		pthread_join(philo[i].thread_philo, NULL);
-	}
-	exit(0);
+	pthread_join(waiter, NULL);
+	//exit(0);
 	free(philo);
-	//printf("philo_name: %i\n", philo[1].name);
-	//printf("philo_nbr: %i\n", param->philo_nbr);
-	//printf("time_die: %i\n", param->t_todie);
-	//printf("time_eat: %i\n", param->t_toeat);
-	//printf("time_sleep: %i\n", param->t_tosleep);
 }
 
 static int		init_dinner(t_philo *philo, t_param *param)
 {
-	//printf("CHEGUEI NA MESA!\n");
-	//philo = NULL;
 	init_philosophers(philo, param, param->philo_nbr);
-	//if (philo->satisfied)
-	//	printf("Tuco comeu tudo e saiu sem pagar\n");
 	return (0);
 }
 
@@ -230,12 +170,9 @@ int	main(int argc, char *argv[])
 	init_struct(&param, philo);
 	ft_memset(&param, 0, sizeof(t_param));
 	ft_memset(philo, 0, sizeof(t_philo));
-	//param = (void *)malloc(sizeof(t_param));
-	//param.start_time = NULL;
 	if (validate_args(argc) && entry_args_check(argc, argv))
 		return(1);
 	get_paramm(argv, &param);
-	//printf("meals_nbr: %i\n", param.meals_nbr);
 	if (init_dinner(philo, &param) != 0)
 	{
 		printf("rodou init_dinner, vai sair  com a comanda sem pagar, oh la!\n");
@@ -247,7 +184,5 @@ int	main(int argc, char *argv[])
 		i++;
 	}
 	free(param.forks);
-	//while (i++ <= *argv[1])
-	//	init_philosophers(i, argv, argc);
 	return(0);
 }

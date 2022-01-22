@@ -10,6 +10,11 @@
 
 # define TRUE 1
 # define FALSE 0
+# define FORK 2
+# define EAT 3
+# define SLEEP 4
+# define THINK 5
+# define DIE 6
 
 typedef struct s_param
 {
@@ -50,15 +55,18 @@ void		*end_dinner(void *phi);
 /********
 ** PARSE
 *********/
-void init_struct(t_param *param, t_philo *philo);
+void	init_struct(t_param *param, t_philo *philo);
 void	get_paramm(char *argv[], t_param *param);
+
+int		validate_args(int argc);
+int		entry_args_check(int argc, char *argv[]);
 
 /********
 ** TIME
 *********/
 unsigned long int	time_calc(long int start_time);
 unsigned long int	phil_clockins(void);
-int time_if_died(long int dead_time, long int last_meal);
+int								time_if_died(long int dead_time, long int last_meal);
 
 /********
 ** UTILS
@@ -66,7 +74,6 @@ int time_if_died(long int dead_time, long int last_meal);
 
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
-void	*ft_memset(void *s, int c, size_t n);
-void	*ft_calloc(size_t count, size_t size);
+void		*ft_memset(void *s, int c, size_t n);
 
 #endif
