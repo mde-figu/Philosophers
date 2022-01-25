@@ -5,7 +5,7 @@ void	only_onephilo(t_philo *one)
 	printf("%ld %i has taken a fork\n", time_calc(one->params->start_time), one->name);
 	//printf("In %ld miliseconds %i has taken a fork\n", time_calc(one->params->start_time), one->name);
 	usleep(one->params->t_todie * 1000);
-	//printf("%ld %i died\n", time_calc(one->params->start_time), one->name);
+	printf("%ld %i died\n", time_calc(one->params->start_time), one->name);
 	//printf("In %ld miliseconds %i died\n", time_calc(one->params->start_time), one->name);
 }
 
@@ -81,7 +81,7 @@ int		verify(t_philo *philo)
 	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0)
 		{
 			pthread_mutex_lock(&philo->params->dead);
-			if (philo->params->who_dead == 0)
+			if (philo->params->who_dead == 0 && philo->params->philo_nbr != 1)
 			{
 				philo->params->who_dead = philo->name;
 				printf("\033[0;31m%ld %i died\n\033[0m", time_calc(philo->params->start_time), philo->name);
@@ -119,7 +119,7 @@ void	*dinner(void *arg)
 		usleep(1000);
 	while(!routine(caio))
 		continue ;
-	return NULL;
+	return (NULL);
 }
 
 static void	init_philosophers(t_philo *philo, t_param *param, int total_philo)
