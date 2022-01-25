@@ -38,7 +38,7 @@ int	entry_args_check(int argc, char *argv[])
 
 	i = 1;
 	temp = 0;
-	//argc--;
+
 	while (i < argc)
 	{
 		if (ft_atol(argv[i]) > 2147483647)
