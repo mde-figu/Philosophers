@@ -1,6 +1,6 @@
 #include "../includes/philo.h"
 
-static int	iswhtspc(char str)
+int	ft_isspace(char str)
 {
 	if (str == 0x20 || (str >= 0x09 && str <= 0x0d))
 		return (1);
@@ -16,7 +16,7 @@ int	ft_atoi(const char *str)
 	i = 0;
 	j = 0;
 	sign = -1;
-	while (iswhtspc(*str))
+	while (ft_isspace(*str))
 		str++;
 	if (*str == '+' || *str == '-')
 		if (*str++ == '-')

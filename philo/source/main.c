@@ -5,7 +5,7 @@ void	only_onephilo(t_philo *one)
 	printf("%ld %i has taken a fork\n", time_calc(one->params->start_time), one->name);
 	//printf("In %ld miliseconds %i has taken a fork\n", time_calc(one->params->start_time), one->name);
 	usleep(one->params->t_todie * 1000);
-	printf("%ld %i died\n", time_calc(one->params->start_time), one->name);
+	//printf("%ld %i died\n", time_calc(one->params->start_time), one->name);
 	//printf("In %ld miliseconds %i died\n", time_calc(one->params->start_time), one->name);
 }
 
@@ -59,11 +59,11 @@ int	thinking(t_philo *philo)
 
 int	routine(t_philo *philo)
 {
-	if(eating(philo) == 1 || philo->satisfied == true)
+	if (eating(philo) == 1 || philo->satisfied == true)
 		return (1);
-	if(sleeping(philo) == 1 || philo->satisfied == true)
+	if (sleeping(philo) == 1 || philo->satisfied == true)
 		return (1);
-	if(thinking(philo) == 1 || philo->satisfied == true)
+	if (thinking(philo) == 1 || philo->satisfied == true)
 		return (1);
 	return (0);
 }
@@ -151,11 +151,11 @@ static void	init_philosophers(t_philo *philo, t_param *param, int total_philo)
 	free(philo);
 }
 
-static int		init_dinner(t_philo *philo, t_param *param)
+/* static int		init_dinner(t_philo *philo, t_param *param)
 {
 	init_philosophers(philo, param, param->philo_nbr);
 	return (0);
-}
+} */
 
 int	main(int argc, char *argv[])
 {
@@ -164,20 +164,17 @@ int	main(int argc, char *argv[])
 	int i;
 
 	i = 0;
-	philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
-
-
-	init_struct(&param, philo);
-	ft_memset(&param, 0, sizeof(t_param));
-	ft_memset(philo, 0, sizeof(t_philo));
-	if (validate_args(argc) && entry_args_check(argc, argv))
+	if ((validate_args(argc) == 1) || (entry_args_check(argc, argv) == 1))
 		return(1);
+	philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+	init_struct(&param, philo);
 	get_paramm(argv, &param);
-	if (init_dinner(philo, &param) != 0)
+	init_philosophers(philo, &param, param.philo_nbr);
+	/* if (init_dinner(philo, &param) != 0)
 	{
 		printf("rodou init_dinner, vai sair  com a comanda sem pagar, oh la!\n");
 		return(1);
-	}
+	} */
 	while (i < param.philo_nbr)
 	{
 		pthread_mutex_destroy(&param.forks[i]);

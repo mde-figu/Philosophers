@@ -21,7 +21,7 @@ vpath %.c $(SRC_PATH)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		gcc $(CFLAGS) -pthread -g -o $(NAME) $(OBJ) -I includes
+		gcc $(CFLAGS) -pthread -g -o $(NAME) $(OBJ) -I includes -fsanitize=leak
 
 $(OBJ_DIR)/%.o:	%.c ./includes/philo.h
 	mkdir -p $(OBJ_DIR)
@@ -39,7 +39,7 @@ git:
 
 clean:
 		rm -f $(OBJ)
-		rm -rf ./buldis
+		rm -rf ./builds
 
 fclean: clean
 		rm -f $(NAME) $(OBJ)

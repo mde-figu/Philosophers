@@ -2,6 +2,8 @@
 
 void init_struct(t_param *param, t_philo *philo)
 {
+	//ft_memset(&param, 0, sizeof(t_param));
+	//ft_memset(philo, 0, sizeof(t_philo));
 	//philo->param = NULL;
 	philo->name = 0;
 	philo->meals = 0;

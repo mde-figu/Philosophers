@@ -15,6 +15,7 @@
 # define SLEEP 4
 # define THINK 5
 # define DIE 6
+# define MAX_INT 2147483647
 
 typedef struct s_param
 {
@@ -72,6 +73,8 @@ int								time_if_died(long int dead_time, long int last_meal);
 ** UTILS
 *********/
 
+int			ft_isspace(char str);
+long long    ft_atol(const char *str);
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
 void		*ft_memset(void *s, int c, size_t n);
