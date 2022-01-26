@@ -26,7 +26,6 @@ typedef struct s_param
 	int					meals_nbr;
 	long int			start_time;
 	int					who_dead;
-	//bool				exit;
 	pthread_mutex_t		dead;
 	pthread_mutex_t		*forks;
 }	t_param;
@@ -36,14 +35,11 @@ typedef struct s_philo
 	int				name;
 	long int		last_meal;
 	int				meals;
-	//bool			death; //bool?
-	bool			satisfied; //bool?
+	bool			satisfied;
 	int				times_eat;
 	int				fork_left;
 	int				fork_right;
-	//pthread_mutex_t	*forks;
 	pthread_t		thread_philo;
-	//struct s_param		*params;
 	t_param			*params;
 }	t_philo;
 
@@ -78,5 +74,15 @@ long long    ft_atol(const char *str);
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
 void		*ft_memset(void *s, int c, size_t n);
+
+/********
+** ROUTINE
+*********/
+
+void		only_onephilo(t_philo *one);
+int			eating(t_philo *philo);
+int			sleeping(t_philo *philo);
+int			thinking(t_philo *philo);
+int			routine(t_philo *philo);
 
 #endif
