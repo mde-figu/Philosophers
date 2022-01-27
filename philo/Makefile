@@ -1,4 +1,3 @@
-
 NAME = philo
 
 CFLAGS = -Wall -Wextra -Werror
