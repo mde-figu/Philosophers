@@ -1,13 +1,16 @@
 #include "../includes/philo.h"
 
-/* int	returns(int i, t_philo *philo)
+static void	meals(t_philo *philo)
 {
-	if (i = 1)
+	philo->last_meal = phil_clockins();
+	philo->meals++;
+	if (philo->params->meals_nbr != 0)
 	{
-		printf("\033[0;32m%ld %i has taken the left fork\n\033[0m",
-		time_calc(philo->params->start_time), philo->name);
+		if (philo->meals == philo->params->meals_nbr
+			&& philo->satisfied == false)
+			philo->satisfied = true;
 	}
-} */
+}
 
 int	eating(t_philo *philo)
 {
@@ -25,14 +28,7 @@ int	eating(t_philo *philo)
 		return (1);
 	printf("\033[0;33m%ld %i is eating\n\033[0m",
 		time_calc(philo->params->start_time), philo->name);
-	philo->last_meal = phil_clockins();
-	philo->meals++;
-	if (philo->params->meals_nbr != 0)
-	{
-		if (philo->meals == philo->params->meals_nbr
-			&& philo->satisfied == false)
-			philo->satisfied = true;
-	}
+	meals(philo);
 	if (philo->params->who_dead != 0)
 		return (1);
 	usleep(philo->params->t_toeat * 1000);

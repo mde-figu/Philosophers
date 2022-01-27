@@ -2,9 +2,9 @@
 
 long long	ft_atol(const char *str)
 {
-	int				i;
-	int				negative;
-	long long int	number;
+	int							i;
+	int							negative;
+	long long int		number;
 
 	i = 0;
 	while (ft_isspace(str[i]))
@@ -31,13 +31,35 @@ int	validate_args(int argc)
 	return (0);
 }
 
+int	entry_args_check_b(char *argv[], int i)
+{
+	long int	temp;
+
+	temp = 0;
+	if (!ft_isdigit(*argv[i]))
+	{
+		printf("Error: arguments must be all digits.\n");
+		return (1);
+	}
+	else if (ft_atoi(argv[i]) == 0)
+	{
+		printf("Error: invalid argument, use non zero arguments.\n");
+		return (1);
+	}
+	temp = ft_atoi(argv[i]);
+	if (!temp)
+	{
+		printf("Error: arguments must be integers.\n");
+		return (1);
+	}
+	return (0);
+}
+
 int	entry_args_check(int argc, char *argv[])
 {
 	int			i;
-	long int	temp;
 
 	i = 1;
-	temp = 0;
 	while (i < argc)
 	{
 		if (ft_atol(argv[i]) > 2147483647)
@@ -50,22 +72,8 @@ int	entry_args_check(int argc, char *argv[])
 			printf("Error: invalid argument, use positive numbers.\n");
 			return (1);
 		}
-		else if (!ft_isdigit(*argv[i]))
-		{
-			printf("Error: arguments must be all digits.\n");
+		else if (entry_args_check_b(argv, i) == 1)
 			return (1);
-		}
-		else if (ft_atoi(argv[i]) == 0)
-		{
-			printf("Error: invalid argument, use non zero arguments.\n");
-			return (1);
-		}
-		temp = ft_atoi(argv[i]);
-		if (!temp)
-		{
-			printf("Error: arguments must be integers.\n");
-			return (1);
-		}
 		i++;
 	}
 	return (0);

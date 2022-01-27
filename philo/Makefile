@@ -13,6 +13,7 @@ SRC =		main.c\
 			utils.c\
 			actions.c\
 			one_philo.c\
+			waiter.c\
 
 
 OBJ_DIR	=	./builds

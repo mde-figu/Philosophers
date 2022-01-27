@@ -1,54 +1,6 @@
 #include "../includes/philo.h"
 
-// int	ifood(t_philo *philo)
-// {
-	
-// }
-
-int	verify(t_philo *philo)
-{
-	int	i;
-
-	i = -1;
-	if (philo->params->who_dead != 0)
-		return (1);
-	if (time_if_died(philo->params->t_todie, philo->last_meal) == 0
-		&& philo->satisfied == false)
-	{
-		pthread_mutex_lock(&philo->params->dead);
-		if (philo->params->who_dead == 0 && philo->params->philo_nbr != 1)
-		{
-			philo->params->who_dead = philo->name;
-			printf("\033[0;31m%ld %i died\n\033[0m",
-				time_calc(philo->params->start_time), philo->name);
-		}
-		pthread_mutex_unlock(&philo->params->dead);
-		return (1);
-	}
-	if (philo->params->meals_nbr != 0)
-	{
-		while (++i < philo->params->philo_nbr)
-		{
-			if (philo[i].meals != philo->params->meals_nbr)
-				return (0);
-		}
-		return (1);
-	}
-
-	return (0);
-}
-
-void	*end_dinner(void *phi)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)phi;
-	while (!verify(philo))
-		continue ;
-	return (NULL);
-}
-
-void	*dinner(void *arg)
+static void	*dinner(void *arg)
 {
 	t_philo	*caio;
 
@@ -89,7 +41,17 @@ static void	init_philosophers(t_philo *philo, t_param *param, int total_philo)
 	while (++i < total_philo)
 		pthread_join(philo[i].thread_philo, NULL);
 	pthread_join(waiter, NULL);
-	free(philo);
+}
+
+static void	print_end(t_philo	*philo)
+{
+	if (philo->params->who_dead != 0)
+	{
+		printf("\033[0;31m%ld %i died\n\033[0m",
+			time_calc(philo->params->start_time), philo->name);
+	}
+	else
+		printf("Comeram %i vezes\n", philo->params->meals_nbr);
 }
 
 int	main(int argc, char *argv[])
@@ -105,11 +67,13 @@ int	main(int argc, char *argv[])
 	init_struct(&param, philo);
 	get_paramm(argv, &param);
 	init_philosophers(philo, &param, param.philo_nbr);
+	print_end(philo);
 	while (i < param.philo_nbr)
 	{
 		pthread_mutex_destroy(&param.forks[i]);
 		i++;
 	}
 	free(param.forks);
+	free(philo);
 	return (0);
 }

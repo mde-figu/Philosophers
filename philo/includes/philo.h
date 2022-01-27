@@ -1,5 +1,6 @@
 #ifndef	PHILO_H
 # define PHILO_H
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -46,12 +47,13 @@ typedef struct s_philo
 /********
 ** DINNER
 *********/
-void		*dinner();
+
 void		*end_dinner(void *phi);
 
 /********
 ** PARSE
 *********/
+
 void	init_struct(t_param *param, t_philo *philo);
 void	get_paramm(char *argv[], t_param *param);
 
@@ -61,6 +63,7 @@ int		entry_args_check(int argc, char *argv[]);
 /********
 ** TIME
 *********/
+
 unsigned long int	time_calc(long int start_time);
 unsigned long int	phil_clockins(void);
 int								time_if_died(long int dead_time, long int last_meal);
