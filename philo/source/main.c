@@ -47,8 +47,8 @@ static void	print_end(t_philo	*philo)
 {
 	if (philo->params->who_dead != 0)
 	{
-		printf("\033[0;31m%ld %i died\n\033[0m",
-			time_calc(philo->params->start_time), philo->name);
+		//printf("\033[0;31m%ld %i died\n\033[0m",
+		//	time_calc(philo->params->start_time), philo->name);
 	}
 	else
 		printf("Comeram %i vezes\n", philo->params->meals_nbr);

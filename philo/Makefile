@@ -23,7 +23,7 @@ vpath %.c $(SRC_PATH)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		gcc $(CFLAGS) -pthread -g -o $(NAME) $(OBJ) -I includes -fsanitize=leak
+		gcc $(CFLAGS) -pthread -g -o $(NAME) $(OBJ) -I includes
 
 $(OBJ_DIR)/%.o:	%.c ./includes/philo.h
 	mkdir -p $(OBJ_DIR)

@@ -1,5 +1,12 @@
 #include "../includes/philo.h"
 
+void	print_dead(t_philo *philo)
+{
+	philo->params->who_dead = philo->name;
+	printf("\033[0;31m%ld %i died\n\033[0m",
+		time_calc(philo->params->start_time), philo->name);
+}
+
 int	verify(t_philo *philo)
 {
 	int	i;
@@ -12,7 +19,7 @@ int	verify(t_philo *philo)
 	{
 		pthread_mutex_lock(&philo->params->dead);
 		if (philo->params->who_dead == 0 && philo->params->philo_nbr != 1)
-			philo->params->who_dead = philo->name;
+			print_dead(philo);
 		pthread_mutex_unlock(&philo->params->dead);
 		return (1);
 	}
