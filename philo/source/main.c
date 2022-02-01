@@ -43,12 +43,6 @@ static void	init_philosophers(t_philo *philo, t_param *param, int total_philo)
 	pthread_join(waiter, NULL);
 }
 
-static void	print_end(t_philo	*philo)
-{
-	if (philo->params->who_dead == 0)
-		printf("Comeram %i vezes\n", philo->params->meals_nbr);
-}
-
 int	main(int argc, char *argv[])
 {
 	t_param	param;
@@ -62,7 +56,6 @@ int	main(int argc, char *argv[])
 	init_struct(&param, philo);
 	get_paramm(argv, &param);
 	init_philosophers(philo, &param, param.philo_nbr);
-	print_end(philo);
 	while (i < param.philo_nbr)
 	{
 		pthread_mutex_destroy(&param.forks[i]);

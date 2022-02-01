@@ -17,12 +17,12 @@ int	eating(t_philo *philo)
 	pthread_mutex_lock(&philo->params->forks[philo->fork_left]);
 	if (philo->params->who_dead != 0)
 		return (1);
-	printf("\033[0;32m%ld %i has taken the left fork\n\033[0m",
+	printf("\033[0;32m%ld %i has taken a fork\n\033[0m",
 		time_calc(philo->params->start_time), philo->name);
 	pthread_mutex_lock(&philo->params->forks[philo->fork_right]);
 	if (philo->params->who_dead != 0)
 		return (1);
-	printf("\033[0;35m%ld %i has taken the right fork\n\033[0m",
+	printf("\033[0;35m%ld %i has taken a fork\n\033[0m",
 		time_calc(philo->params->start_time), philo->name);
 	if (philo->params->who_dead != 0)
 		return (1);

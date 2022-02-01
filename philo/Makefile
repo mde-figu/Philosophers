@@ -30,8 +30,8 @@ $(OBJ_DIR)/%.o:	%.c ./includes/philo.h
 	gcc -c -o $@ $(CFLAGS) -I includes -g3 $<
 
 valgrind:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file="out.txt" ./philo 2 202 100 100 3
-#	valgrind --tool=helgrind ./philo 2 202 100 100 3
+#	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file="out.txt" ./philo 2 202 100 100 3
+	valgrind --tool=drd ./philo 2 202 100 100 3
 
 git:
 	@git add .
