@@ -11,6 +11,11 @@
 
 # define FALSE 0
 # define TRUE 1
+# define FORK 2
+# define EAT 3
+# define SLEEP 4
+# define THINK 5
+# define DIE 6
 # define MAX_INT 2147483647
 
 typedef struct s_param
@@ -22,8 +27,10 @@ typedef struct s_param
 	int	meals_nbr;
 	long int	start_time;
 	int	who_dead;
-	pthread_mutex_t	dead;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	*dead;
+	pthread_mutex_t	*text;
+	pthread_mutex_t *who;
+	//pthread_mutex_t	*forks;
 }		t_param;
 
 typedef struct s_philo
@@ -33,8 +40,11 @@ typedef struct s_philo
 	int	meals;
 	bool	satisfied;
 	int	times_eat;
-	int	fork_left;
-	int	fork_right;
+	//int	fork_left;
+	//int	fork_right;
+	pthread_mutex_t	*forks_left;
+	pthread_mutex_t	*forks_right;
+	pthread_mutex_t *mutex_meals;
 	pthread_t	thread_philo;
 	t_param	*params;
 }		t_philo;
@@ -50,7 +60,7 @@ void	*end_dinner(void *phi);
 *********/
 
 void	init_struct(t_param *param, t_philo *philo);
-void	get_paramm(char *argv[], t_param *param);
+void	get_paramm(char *argv[], t_param *param, pthread_mutex_t **forks);
 
 int		validate_args(int argc);
 int		entry_args_check(int argc, char *argv[]);
@@ -66,7 +76,7 @@ int	time_if_died(long int dead_time, long int last_meal);
 /********
 ** UTILS
 *********/
-
+void print_action(t_philo *philo, int action);
 int	ft_isspace(char str);
 long long	ft_atol(const char *str);
 int	ft_atoi(const char *str);
@@ -82,5 +92,6 @@ int		eating(t_philo *philo);
 int		sleeping(t_philo *philo);
 int		thinking(t_philo *philo);
 int		routine(t_philo *philo);
+int 	who_died(t_philo *philo);
 
 #endif
