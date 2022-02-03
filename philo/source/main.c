@@ -13,6 +13,7 @@ static void	*dinner(void *arg)
 		only_onephilo(caio);
 		return (NULL);
 	}
+	
 	if (caio->name % 2 == 0)
 		usleep(1000);
 	while (!routine(caio))
