@@ -24,7 +24,8 @@ vpath %.c $(SRC_PATH)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		gcc $(CFLAGS) -pthread -g -o $(NAME) $(OBJ) -I includes -fsanitize=leak
+		gcc $(CFLAGS) -pthread -g -o $(NAME) $(OBJ) -I includes
+#-fsanitize=thread
 #-fsanitize=leak
 
 $(OBJ_DIR)/%.o:	%.c ./includes/philo.h
@@ -32,7 +33,7 @@ $(OBJ_DIR)/%.o:	%.c ./includes/philo.h
 	gcc -c -o $@ $(CFLAGS) -I includes -g3 $<
 
 valgrind:
-	valgrind --tool=drd --log-file="out.txt" ./philo 10 2000 100 100 3
+	valgrind --tool=helgrind --log-file="out.txt" ./philo 10 2000 100 100 3
 #	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file="out.txt" ./philo 2 202 100 100 3
 
 git:
