@@ -13,6 +13,7 @@ SRC =		main.c\
 			actions.c\
 			one_philo.c\
 			waiter.c\
+			routine.c\
 
 
 OBJ_DIR	=	./builds
@@ -23,7 +24,7 @@ vpath %.c $(SRC_PATH)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		gcc $(CFLAGS) -pthread -g -o $(NAME) $(OBJ) -I includes -fsanitize=thread
+		gcc $(CFLAGS) -pthread -g -o $(NAME) $(OBJ) -I includes -fsanitize=leak
 #-fsanitize=leak
 
 $(OBJ_DIR)/%.o:	%.c ./includes/philo.h

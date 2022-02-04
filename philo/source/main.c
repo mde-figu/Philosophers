@@ -13,7 +13,6 @@ static void	*dinner(void *arg)
 		only_onephilo(caio);
 		return (NULL);
 	}
-	
 	if (caio->name % 2 == 0)
 		usleep(1000);
 	while (!routine(caio))
@@ -21,7 +20,8 @@ static void	*dinner(void *arg)
 	return (NULL);
 }
 
-static void	init_philosophers(t_philo *philo, t_param *param, pthread_mutex_t **forks, int total_philo)
+static void	init_philosophers(t_philo *philo, t_param *param,
+				pthread_mutex_t **forks, int total_philo)
 {
 	pthread_t	waiter;
 	int			i;
@@ -32,7 +32,8 @@ static void	init_philosophers(t_philo *philo, t_param *param, pthread_mutex_t **
 		philo[i].name = i + 1;
 		philo[i].forks_right = &(*forks)[i];
 		philo[i].forks_left = &(*forks)[i + 1];
-		philo[i].mutex_meals = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * 1);
+		philo[i].mutex_meals = (pthread_mutex_t *)
+			malloc(sizeof(pthread_mutex_t) * 1);
 		philo[i].params = param;
 	}
 	philo[i - 1].forks_left = &(*forks)[0];
@@ -60,10 +61,10 @@ void	init_forks(pthread_mutex_t **forks, int total_philo)
 
 int	main(int argc, char *argv[])
 {
-	t_param	param;
-	t_philo	*philo;
-	pthread_mutex_t *forks;
-	int		i;
+	t_param			param;
+	t_philo			*philo;
+	pthread_mutex_t	*forks;
+	int				i;
 
 	i = 0;
 	if ((validate_args(argc) == 1) || (entry_args_check(argc, argv) == 1))
@@ -80,6 +81,9 @@ int	main(int argc, char *argv[])
 		i++;
 	}
 	pthread_mutex_destroy(param.text);
+	pthread_mutex_destroy(param.who);
+	pthread_mutex_destroy(param.dead);
+	free(param.who);
 	free(param.text);
 	free(param.dead);
 	free(forks);

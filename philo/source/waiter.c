@@ -1,8 +1,8 @@
 #include "../includes/philo.h"
 
-int who_died(t_philo *philo)
+int	who_died(t_philo *philo)
 {
-	int dead;
+	int	dead;
 
 	dead = 0;
 	pthread_mutex_lock(philo->params->who);
@@ -11,7 +11,7 @@ int who_died(t_philo *philo)
 	return (dead);
 }
 
-void print_dead(t_philo *philo)
+void	print_dead(t_philo *philo)
 {
 	pthread_mutex_lock(philo->params->who);
 	philo->params->who_dead = philo->name;
@@ -19,10 +19,10 @@ void print_dead(t_philo *philo)
 	print_action(philo, DIE);
 }
 
-int time_die(t_philo *philo)
+int	time_die(t_philo *philo)
 {
-	int to_die;
-	long l_meal;
+	int		to_die;
+	long	l_meal;
 
 	pthread_mutex_lock(philo->mutex_meals);
 	to_die = philo->params->t_todie;
@@ -33,9 +33,9 @@ int time_die(t_philo *philo)
 	return (1);
 }
 
-int verify(t_philo *philo)
+int	verify(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (who_died(philo) != 0)
@@ -60,12 +60,12 @@ int verify(t_philo *philo)
 	return (0);
 }
 
-void *end_dinner(void *phi)
+void	*end_dinner(void *phi)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)phi;
 	while (!verify(philo))
-		continue;
+		continue ;
 	return (NULL);
 }

@@ -2,9 +2,9 @@
 
 long long	ft_atol(const char *str)
 {
-	int							i;
-	int							negative;
-	long long int		number;
+	int				i;
+	int				negative;
+	long long int	number;
 
 	i = 0;
 	while (ft_isspace(str[i]))
