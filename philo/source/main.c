@@ -34,6 +34,7 @@ static void	init_philosophers(t_philo *philo, t_param *param,
 		philo[i].forks_left = &(*forks)[i + 1];
 		philo[i].mutex_meals = (pthread_mutex_t *)
 			malloc(sizeof(pthread_mutex_t) * 1);
+		pthread_mutex_init(philo[i].mutex_meals, NULL);
 		philo[i].params = param;
 	}
 	philo[i - 1].forks_left = &(*forks)[0];
