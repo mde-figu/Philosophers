@@ -6,6 +6,7 @@ int	eating(t_philo *philo)
 	pthread_mutex_lock(philo->forks_left);
 	if (dinner_finish(philo) != 0)
 		return (1);
+	usleep(1000);
 	print_action(philo, FORK);
 	print_action(philo, FORK);
 	if (dinner_finish(philo) != 0)
@@ -30,7 +31,6 @@ int	sleeping(t_philo *philo)
 int	thinking(t_philo *philo)
 {
 	print_action(philo, THINK);
-	usleep(1000);
 	return (0);
 }
 
